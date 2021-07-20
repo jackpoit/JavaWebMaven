@@ -10,6 +10,8 @@
   <modules>
     <module>WoniuShop</module>
     <module>Exam0719</module>
+      <module>Day04_AM</module>
+      <module>Day04_PM</module>
   </modules>
   <packaging>pom</packaging>
 
