@@ -1,0 +1,37 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+<!--  约束一定要写-->
+
+  <display-name>Archetype Created Web Application</display-name>
+  <servlet>
+    <servlet-name>ShowAllProcuctServlet</servlet-name>
+    <servlet-class>com.woniuxy.web.servlet.FindAllServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ShowAllProcuctServlet</servlet-name>
+    <url-pattern>/showAll</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>ShowProductById</servlet-name>
+    <servlet-class>com.woniuxy.web.servlet.FindOneServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ShowProductById</servlet-name>
+    <url-pattern>/showById</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>addServlet</servlet-name>
+    <servlet-class>com.woniuxy.web.servlet.AddProductServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>addServlet</servlet-name>
+    <url-pattern>/add</url-pattern>
+  </servlet-mapping>
+</web-app>
