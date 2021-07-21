@@ -20,7 +20,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	@Override
 	public List<Employee> findAll() throws SQLException {
 		Connection conn = DBUtil.getConnection();
-		String sql = "SELECT id,tno,name,gender,birthday,title,salary,manager_id,dept_id FROM t_emp";
+		String sql = "SELECT id,tno,name,gender,birthday,title,salary,manager_id,dept_id,image FROM t_emp";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
 		List<Employee> list = new ArrayList<>();
@@ -45,6 +45,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 				emp.setDeptId(rs.getInt("dept_id"));
 
 			}
+			emp.setImagePath(rs.getString("image"));
 			list.add(emp);
 		}
 		DBUtil.release(conn, ps, rs);
@@ -66,7 +67,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	@Override
 	public int updateById(Employee emp) throws SQLException {
 		Connection conn = DBUtil.getConnection();
-		String sql = "UPDATE t_emp SET tno=?,name=?,gender=?,birthday=?,salary=?,title=?,manager_id=?,dept_id=? WHERE id=?";
+		String sql = "UPDATE t_emp SET tno=?,name=?,gender=?,birthday=?,salary=?,title=?,manager_id=?,dept_id=?,image=? WHERE id=?";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setObject(1, emp.getTno());
 		ps.setObject(2, emp.getName());
@@ -76,7 +77,9 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		ps.setObject(6, emp.getTitle());
 		ps.setObject(7, emp.getManagerId());
 		ps.setObject(8, emp.getDeptId());
-		ps.setObject(9, emp.getId());
+		ps.setObject(9, emp.getImagePath());
+		ps.setObject(10, emp.getId());
+
 		int rows = ps.executeUpdate();
 		DBUtil.release(conn, ps);
 		return rows;
@@ -85,7 +88,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	@Override
 	public List<Employee> findByCondition(String str) throws SQLException {
 		Connection conn = DBUtil.getConnection();
-		String sql = "SELECT id,tno,name,gender,birthday,title,salary,manager_id,dept_id from t_emp " +
+		String sql = "SELECT id,tno,name,gender,birthday,title,salary,manager_id,dept_id,image From t_emp " +
 				"WHERE name LIKE ? OR title LIKE ? OR tno LIKE ?";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		String kw = "%" + str + "%";
@@ -114,6 +117,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 			if (rs.getString("dept_id") != null) {
 				emp.setDeptId(rs.getInt("dept_id"));
 			}
+			emp.setImagePath(rs.getString("image"));
 			list.add(emp);
 		}
 		DBUtil.release(conn, ps, rs);
@@ -143,7 +147,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	@Override
 	public List<Employee> findLimit(String keyword ,int start, int len) throws SQLException {
 		Connection conn = DBUtil.getConnection();
-		String sql = "SELECT id,tno,name,gender,birthday,title,salary,manager_id,dept_id " +
+		String sql = "SELECT id,tno,name,gender,birthday,title,salary,manager_id,dept_id,image "+
 				"From t_emp WHERE name LIKE ? OR title LIKE ? OR tno LIKE ? " +
 				"Limit ?,?";
 		PreparedStatement ps = conn.prepareStatement(sql);
@@ -175,6 +179,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 			if (rs.getString("dept_id") != null) {
 				emp.setDeptId(rs.getInt("dept_id"));
 			}
+			emp.setImagePath(rs.getString("image"));
 			list.add(emp);
 		}
 		DBUtil.release(conn, ps, rs);
@@ -184,8 +189,8 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	@Override
 	public int insert(Employee emp) throws SQLException {
 		Connection conn = DBUtil.getConnection();
-		String sql="INSERT INTO t_emp(tno,name,gender,salary,title,birthday,manager_id,dept_id) " +
-				"VALUE(?,?,?,?,?,?,?,?)";
+		String sql="INSERT INTO t_emp(tno,name,gender,salary,title,birthday,manager_id,dept_id,image) " +
+				"VALUE(?,?,?,?,?,?,?,?,?)";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setObject(1,emp.getTno());
 		ps.setObject(2,emp.getName());
@@ -195,6 +200,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		ps.setObject(6,emp.getBirthday());
 		ps.setObject(7,emp.getManagerId());
 		ps.setObject(8,emp.getDeptId());
+		ps.setObject(9,emp.getImagePath());
 		int row = ps.executeUpdate();
 		DBUtil.release(conn,ps);
 		return row;

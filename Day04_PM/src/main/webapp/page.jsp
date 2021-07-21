@@ -7,6 +7,8 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <html>
 <head>
     <%--设置根路径--%>
@@ -42,7 +44,7 @@
             <div class="col-md-10 col-md-offset-1" style="min-height: 307px">
                 <table class="table-bordered table-hover text-center"
                        style="font-size: 18px;line-height: 50px;width: 100%">
-                    <tr style=" background-color:#999; color: #ffff00;font-weight: bold">
+                    <tr style="background-color:#999; color: #ffff00;font-weight: bold">
                         <td>编号</td>
                         <td>工号</td>
                         <td>姓名</td>
@@ -52,6 +54,7 @@
                         <td>薪资</td>
                         <td>领导编号</td>
                         <td>部门编号</td>
+                        <td>头像</td>
                         <td colspan="2">操作</td>
                     </tr>
                     <c:forEach var="emp" items="${pageModel.list}">
@@ -68,6 +71,7 @@
                                 <%--emp也是在域中的 可以用empty判断--%>
                             <td>${empty emp.managerId?"boss":emp.managerId}</td>
                             <td>${empty emp.deptId?"轮岗":emp.deptId}</td>
+                            <td><img src="${emp.imagePath}" alt="" style="width: 50px" class="img-circle" id="choose_img"></td>
                             <td><a href="javascript:;" onclick="editItem(this)" class="btn btn-primary">
                                 <span class="glyphicon glyphicon-edit"></span>修改</a></td>
                             <td>
@@ -125,7 +129,11 @@
                 <h4 class="modal-title text-left">修改用户</h4>
             </div>
             <div class="modal-body">
-                <form action="edit" class="form-horizontal" method="post">
+                <div class="text-center" style="margin-bottom: 10px"><img src="" alt="..."
+                                                                          class="img-circle" style="width: 100px" id="myImage">
+
+                </div>
+                <form action="edit" class="form-horizontal" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="tno" class="control-label col-md-2 ">工号:</label>
                         <div class="col-md-9">
@@ -177,10 +185,15 @@
                                    title="请输入正确格式">
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label for="imgFile" class="control-label col-md-2" style="margin-right: 10px">上传头像</label>
+                        <input type="file" id="imgFile" name="imgFile" required>
+
+                    </div>
                     <div class="form-group sr-only">
                         <label for="id" class="control-label col-md-2">ID:</label>
                         <div class="col-md-9">
-                            <input type="text" id="id" name="id" class="form-control">
+                            <input type="text" id="id" name="id" class="form-control" >
 
                         </div>
                     </div>
@@ -204,7 +217,7 @@
                 <h4 class="modal-title text-left">添加用户</h4>
             </div>
             <div class="modal-body">
-                <form action="add" class="form-horizontal" method="post">
+                <form action="add" class="form-horizontal" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="add_tno" class="control-label col-md-2">工号:</label>
                         <div class="col-md-9">
@@ -263,10 +276,14 @@
                                    title="请输入正确格式" required>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label for="add_imgFile" class="control-label col-md-2" style="margin-right: 10px">上传头像</label>
+                        <input type="file" id="add_imgFile" name="add_imgFile" required>
+                    </div>
                     <div class="form-group sr-only">
                         <label for="add_id" class="control-label col-md-2">ID:</label>
                         <div class="col-md-9">
-                            <input type="text" id="add_id" name="id" class="form-control">
+                            <input type="text" id="add_id" name="id" class="form-control" required>
                         </div>
                     </div>
 

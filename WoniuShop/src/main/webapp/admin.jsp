@@ -469,8 +469,13 @@
                 <h4 class="modal-title text-left">添加用户</h4>
             </div>
             <div class="modal-body">
-                <div class="text-center" style="margin-bottom: 10px"><img src="imges/user/1.jpg" alt="..."
-                                                                          class="img-circle" style="width: 100px"></div>
+                <div class="text-center" style="margin-bottom: 10px"><img src="" alt="..."
+                                                                          class="img-circle" style="width: 100px">
+                    <div class="form-group">
+                        <label for="imgFile">上传头像</label>
+                        <input type="file" id="imgFile">
+                    </div>
+                </div>
                 <form action="register" class="form-horizontal" method="post">
                     <div class="form-group">
                         <label for="a_username" class="control-label col-md-2 ">用户名:</label>

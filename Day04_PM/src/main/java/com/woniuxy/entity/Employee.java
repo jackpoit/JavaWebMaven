@@ -19,11 +19,12 @@ public class Employee implements Serializable {
 	private BigDecimal salary;
 	private Integer managerId;
 	private Integer deptId;
+	private String imagePath;
 
 	public Employee() {
 	}
 
-	public Employee(Integer id, String tno, String name, String gender, Date birthday, String title, BigDecimal salary, Integer managerId, Integer deptId) {
+	public Employee(Integer id, String tno, String name, String gender, Date birthday, String title, BigDecimal salary, Integer managerId, Integer deptId, String imagePath) {
 		this.id = id;
 		this.tno = tno;
 		this.name = name;
@@ -33,9 +34,10 @@ public class Employee implements Serializable {
 		this.salary = salary;
 		this.managerId = managerId;
 		this.deptId = deptId;
+		this.imagePath = imagePath;
 	}
 
-	public Employee(String tno, String name, String gender, Date birthday, String title, BigDecimal salary, Integer managerId, Integer deptId) {
+	public Employee(String tno, String name, String gender, Date birthday, String title, BigDecimal salary, Integer managerId, Integer deptId, String imagePath) {
 		this.tno = tno;
 		this.name = name;
 		this.gender = gender;
@@ -44,6 +46,7 @@ public class Employee implements Serializable {
 		this.salary = salary;
 		this.managerId = managerId;
 		this.deptId = deptId;
+		this.imagePath = imagePath;
 	}
 
 	@Override
@@ -59,6 +62,14 @@ public class Employee implements Serializable {
 				", managerId=" + managerId +
 				", deptId=" + deptId +
 				'}';
+	}
+
+	public String getImagePath() {
+		return imagePath;
+	}
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
 	}
 
 	public Integer getId() {
