@@ -71,7 +71,14 @@
                                 <%--emp也是在域中的 可以用empty判断--%>
                             <td>${empty emp.managerId?"boss":emp.managerId}</td>
                             <td>${empty emp.deptId?"轮岗":emp.deptId}</td>
-                            <td><img src="${emp.imagePath}" alt="" style="width: 50px" class="img-circle" id="choose_img"></td>
+                            <td>
+                                <c:if test="${!empty emp.imagePath}">
+                                    <img src="${emp.imagePath}" alt="" style="width: 50px;" class="img-circle" >
+                                </c:if>
+                                <c:if test="${empty emp.imagePath}">
+                                    <div class="img-circle" style="background-color: #607b84;width: 50px;height: 50px;margin: 0 auto"></div>
+                                </c:if>
+                            </td>
                             <td><a href="javascript:;" onclick="editItem(this)" class="btn btn-primary">
                                 <span class="glyphicon glyphicon-edit"></span>修改</a></td>
                             <td>
@@ -129,7 +136,7 @@
                 <h4 class="modal-title text-left">修改用户</h4>
             </div>
             <div class="modal-body">
-                <div class="text-center" style="margin-bottom: 10px"><img src="" alt="..."
+                <div class="text-center" style="margin-bottom: 10px"><img src="" alt="无头像"
                                                                           class="img-circle" style="width: 100px" id="myImage">
 
                 </div>

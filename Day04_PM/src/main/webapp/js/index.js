@@ -17,7 +17,6 @@ function editItem(obj) {
     let managerId=tds.eq(7).text();
     let deptId=tds.eq(8).text();
     let imagePath=tds.eq(9).children()[0].src;
-    console.log(imagePath);
     $('#id').val(id);
     $('#tno').val(tno);
     $('#name').val(name);
@@ -27,8 +26,7 @@ function editItem(obj) {
     $('#salary').val(salary);
     $('#managerId').val(managerId==="boss"?"":managerId);
     $('#deptId').val(deptId==="轮岗"?"":deptId);
-     $('#myImage').attr('src',imagePath);
-
+    $('#myImage').attr('src',imagePath);
     $('#editModal').modal('show');
 }
 
