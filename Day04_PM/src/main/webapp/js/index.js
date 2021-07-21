@@ -31,7 +31,7 @@ function editItem(obj) {
 
 function searchByKw() {
     // console.log($('#keyword').val());
-    let kwPattern=/^[a-zA-Z\u4e00-\u9fa5]+$/;
+    let kwPattern=/^[\w\u4e00-\u9fa5]+|$/;
     if (kwPattern.test($('#keyword').val())){
         $('#keyword').parent().parent().submit();
     }else {

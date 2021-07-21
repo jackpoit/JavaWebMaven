@@ -1,6 +1,7 @@
 package com.woniuxy.service;
 
 import com.woniuxy.entity.Employee;
+import com.woniuxy.entity.PageModel;
 
 import java.util.List;
 
@@ -33,5 +34,14 @@ public interface EmployeeService {
 	 *
 	 * @return 员工集合
 	 */
-	List<Employee> showByName(String str);
+	List<Employee> showByKeyword(String str);
+
+	/**
+	 * 根据当前页码封装一个分页模型
+	 * @param currentPage 当前页
+	 * @return 分页模型
+	 */
+	PageModel<Employee> findOnePage(int currentPage);
+
+
 }

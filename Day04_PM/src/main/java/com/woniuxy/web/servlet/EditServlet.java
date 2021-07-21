@@ -14,6 +14,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 
+/**
+ * @author rua
+ */
 @WebServlet("/edit")
 public class EditServlet extends HttpServlet {
 	EmployeeServiceImpl esi = new EmployeeServiceImpl();
@@ -54,16 +57,10 @@ public class EditServlet extends HttpServlet {
 
 
 		boolean editFlag = esi.edit(emp);
-		if (editFlag) {
-			resp.getWriter().write("<script>alert('更新成功')</script>");
-
-		} else {
-			resp.getWriter().write("<script>alert('更新失败')</script>");
-		}
-
+		resp.getWriter().write("<script>alert('"+(editFlag?"更新成功":"更新失败")+"')</script>");
 
 		//重定向到首页的Servlet,查询数据后再回到index.jsp
-		resp.setHeader("refresh", "0;url=" + req.getContextPath() + "/index");
+		resp.setHeader("refresh", "0;url=" + req.getContextPath() + "/");
 
 
 	}

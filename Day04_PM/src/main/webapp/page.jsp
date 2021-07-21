@@ -1,13 +1,12 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: rua
-  Date: 2021/7/20
-  Time: 15:38
+  Date: 2021/7/21
+  Time: 11:27
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <%--设置根路径--%>
@@ -16,11 +15,11 @@
                 + request.getServerPort() + request.getContextPath() + "/";
     %>
     <base href="<%=basePath%>">
-    <title>Title</title>
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
-    <script src="bootstrap/js/jquery-3.5.1.js"></script>
-    <script src="bootstrap/js/bootstrap.js"></script>
-    <script src="js/index.js"></script>
+        <title>Title</title>
+        <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+        <script src="bootstrap/js/jquery-3.5.1.js"></script>
+        <script src="bootstrap/js/bootstrap.js"></script>
+        <script src="js/index.js"></script>
 
 </head>
 <body>
@@ -35,7 +34,7 @@
         <a class="btn btn-primary" href="index">搜索全部</a>
     </form>
 </div>
-<c:if test="${!empty empList}">
+<c:if test="${!empty pageModel}">
     <div class="container" style="margin-top: 20px">
         <div class="row">
             <div class="col-md-10 col-md-offset-1" style="min-height: 700px">
@@ -52,7 +51,7 @@
                         <td>部门编号</td>
                         <td colspan="2">操作</td>
                     </tr>
-                    <c:forEach var="emp" items="${empList}">
+                    <c:forEach var="emp" items="${pageModel.list}">
                         <tr>
                             <td>${emp.id}</td>
                             <td>${emp.tno}</td>
@@ -80,12 +79,12 @@
         </div>
         <div class="container row">
             <ul class="pager">
-                <li><a href="javascript:;" onclick=" getPagePath(this)">&laquo;</a></li>
+                <li><a href="javascript:;" onclick=" getPagePath(this)">上一页</a></li>
                 <li><a href="javascript:;" onclick=" getPagePath(this)">1</a></li>
                 <li><a href="javascript:;" onclick=" getPagePath(this)">2</a></li>
                 <li><a href="javascript:;" onclick=" getPagePath(this)">3</a></li>
                 <li><a href="javascript:;" onclick=" getPagePath(this)">4</a></li>
-                <li><a href="javascript:;" onclick=" getPagePath(this)">&raquo;</a></li>
+                <li><a href="javascript:;" onclick=" getPagePath(this)">上一页</a></li>
             </ul>
         </div>
     </div>
@@ -175,3 +174,4 @@
 </div>
 </body>
 </html>
+

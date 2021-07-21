@@ -10,8 +10,10 @@
   <display-name>Archetype Created Web Application</display-name>
 
   <welcome-file-list>
+<!--      welcome里不加"/"-->
 <!--    项目启动默认访问Servlet-->
     <welcome-file>index</welcome-file>
+
   </welcome-file-list>
 
 </web-app>

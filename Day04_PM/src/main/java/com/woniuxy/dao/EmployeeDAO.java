@@ -38,5 +38,20 @@ public interface EmployeeDAO {
 	 * @return 返回员工集合
 	 * @throws SQLException
 	 */
-	List<Employee> findLikeByName(String str) throws SQLException;
+	List<Employee> findByCondition(String str) throws SQLException;
+
+	/**
+	 * 查询总记录数
+	 * @return 总记录数
+	 */
+	long count() throws SQLException;
+
+	/**
+	 * 查询后截取结果
+	 * @param start 起始行
+	 * @param len  长度
+	 * @return 结果集
+	 */
+	List<Employee> findLimit(int start, int len) throws SQLException;
+
 }

@@ -15,8 +15,8 @@ import java.util.List;
 /**
  * @author rua
  */
-@WebServlet("/showByName")
-public class ShowByNameServlet extends HttpServlet {
+@WebServlet("/showByKeyword")
+public class ShowByKeywordServlet extends HttpServlet {
 	EmployeeServiceImpl esi=new EmployeeServiceImpl();
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -25,7 +25,7 @@ public class ShowByNameServlet extends HttpServlet {
 		PrintWriter writer = resp.getWriter();
 		String str=req.getParameter("keyword");
 
-		List<Employee> list=esi.showByName("%"+str+"%");
+		List<Employee> list=esi.showByKeyword(str);
 		if (list==null){
 			writer.write("<script>alert('查不到')</script>");
 			resp.setHeader("refresh","0;url="+req.getContextPath()+"/");
