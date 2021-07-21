@@ -27,7 +27,7 @@ import java.io.IOException;
 @MultipartConfig
 
 @WebServlet("/upload")
-public class UploadServlet extends HttpServlet {
+public class   UploadServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//1.处理乱码
@@ -59,7 +59,7 @@ public class UploadServlet extends HttpServlet {
 		}
 
 
-		//5.完成文件的上传
+		//6.完成文件的上传
 		part.write(uploadPath + "/" + fileName);  //IO流的底层逻辑
 
 		String imgPath = "http://localhost/upload/" + user + "/" + fileName;

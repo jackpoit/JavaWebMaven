@@ -63,7 +63,7 @@
                             <td>${emp.tno}</td>
                             <td>${emp.name}</td>
                             <td>${emp.gender}</td>
-                                <%--                    <td>${emp.birthday}</td>--%>
+                                <%--<td>${emp.birthday}</td>--%>
                             <td><fmt:formatDate value="${emp.birthday}" pattern="yyyy/MM/dd"/>
                             </td>
                             <td>${emp.title}</td>
