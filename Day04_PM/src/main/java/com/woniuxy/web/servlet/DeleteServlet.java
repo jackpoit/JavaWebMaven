@@ -32,7 +32,7 @@ public class DeleteServlet extends HttpServlet {
 
 		}
 		//重定向到首页的Servlet,查询数据后再回到index.jsp
-		resp.setHeader("refresh","0;url="+req.getContextPath()+"/index");
+		resp.setHeader("refresh","0;url="+req.getContextPath()+"/page");
 
 	}
 

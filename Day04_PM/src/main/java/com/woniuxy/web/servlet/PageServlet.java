@@ -30,11 +30,17 @@ public class PageServlet extends HttpServlet {
 		if (currentPageStr!=null&&!"".equals(currentPageStr)){
 			currentPage=Integer.parseInt(currentPageStr);
 		}
-		System.out.println(currentPage);
+		//2.获取模糊查询关键字
+		String keyword=req.getParameter("keyword");
+		if (keyword==null){
+			keyword="";
+		}
+
 
 		//2.调用业务层api查询分页模型
-		PageModel<Employee> model = esi.findOnePage(currentPage);
-		System.out.println(model);
+		PageModel<Employee> model = esi.findOnePage(currentPage,keyword);
+
+//		System.out.println(model);
 		req.setAttribute("pageModel",model);
 		req.getRequestDispatcher("/page.jsp").forward(req,resp);
 	}

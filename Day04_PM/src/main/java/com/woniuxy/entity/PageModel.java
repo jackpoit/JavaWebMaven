@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
- *	通用的分页模型类
+ *	通用的分页模型类 模糊查询分页
  * @Author: jackpoit
  * @Date: 2021/07/21/11:34
  * @Description:
@@ -23,13 +23,15 @@ public class PageModel<T> {
 	private Integer totalPage;
 	//当前页的数据
 	private List<T> list;
+	//模糊查询关键字
+	private  String keyword;
 
 	public PageModel() {
 	}
 
 	@Override
 	public String toString() {
-		return "PageModal{" +
+		return "PageModel{" +
 				"pageSize=" + pageSize +
 				", currentPage=" + currentPage +
 				", prev=" + prev +
@@ -37,7 +39,16 @@ public class PageModel<T> {
 				", total=" + total +
 				", totalPage=" + totalPage +
 				", list=" + list +
+				", keyword='" + keyword + '\'' +
 				'}';
+	}
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
 	}
 
 	public Integer getPageSize() {

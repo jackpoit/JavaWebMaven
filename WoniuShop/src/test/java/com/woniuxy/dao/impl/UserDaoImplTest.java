@@ -1,6 +1,5 @@
-package com.woniuxy.test;
+package com.woniuxy.dao.impl;
 
-import com.woniuxy.dao.impl.UserDaoImpl;
 import com.woniuxy.entity.User;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,11 +7,19 @@ import org.junit.Test;
 import java.sql.SQLException;
 import java.util.List;
 
+import static org.junit.Assert.*;
 
+/**
+ * Created with IntelliJ IDEA.
+ *
+ * @Author: jackpoit
+ * @Date: 2021/07/21/15:07
+ * @Description:
+ */
 public class UserDaoImplTest {
 	private UserDaoImpl udi;
 	@Before
-	public void init(){
+	public void setUp() throws Exception {
 		udi=new UserDaoImpl();
 	}
 
@@ -80,5 +87,8 @@ public class UserDaoImplTest {
 			throwables.printStackTrace();
 		}
 
+	}
+	@Test
+	public void findByName() {
 	}
 }

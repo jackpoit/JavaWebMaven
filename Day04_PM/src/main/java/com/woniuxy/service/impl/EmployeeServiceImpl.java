@@ -62,7 +62,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public PageModel<Employee> findOnePage(int currentPage) {
+	public PageModel<Employee> findOnePage(int currentPage, String keyword) {
 		//创建分页模型
 		PageModel<Employee> model = new PageModel<>();
 		//1.封装一页显示多少条数据
@@ -72,7 +72,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		model.setCurrentPage(currentPage);
 		try {
 			//3.查询员工总条数
-			final long count = edi.count();
+			final long count = edi.count(keyword);
 			model.setTotal(count);
 			//4.计算总页数并封装到model中
 			int totalPage = (int) Math.ceil(count * 1.0 / pageSize); //取整
@@ -82,13 +82,27 @@ public class EmployeeServiceImpl implements EmployeeService {
 			//6.封装下一页
 			model.setNext(currentPage == totalPage ? 1 : currentPage + 1);
 			//7.查询当前页的数据
-			int start=(currentPage-1)*pageSize; //查询起始行
-			List<Employee> list = edi.findLimit(start, pageSize);
+			int start = (currentPage - 1) * pageSize; //查询起始行
+			List<Employee> list = edi.findLimit(keyword, start, pageSize);
 			model.setList(list);
+			model.setKeyword(keyword);
 		} catch (SQLException throwables) {
 			throwables.printStackTrace();
 		}
 		return model;
 
+	}
+
+	@Override
+	public boolean addEmp(Employee emp) {
+		if (emp==null){
+			return false;
+		}
+		try {
+			return edi.insert(emp)>0;
+		} catch (SQLException throwables) {
+			throwables.printStackTrace();
+		}
+		return false;
 	}
 }

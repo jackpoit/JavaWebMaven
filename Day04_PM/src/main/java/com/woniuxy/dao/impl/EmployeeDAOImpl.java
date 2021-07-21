@@ -121,14 +121,18 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	}
 
 	@Override
-	public long count() throws SQLException {
+	public long count( String keyword) throws SQLException {
 		Connection conn = DBUtil.getConnection();
-		String sql = "SELECT COUNT(*) FROM t_emp";
+		String sql = "SELECT COUNT(*) FROM t_emp WHERE name LIKE ? OR title LIKE ? OR tno LIKE ?";
 		PreparedStatement ps = conn.prepareStatement(sql);
+		String kw = "%" + keyword + "%";
+		ps.setObject(1, kw);
+		ps.setObject(2, kw);
+		ps.setObject(3, kw);
 		ResultSet rs = ps.executeQuery();
 		long count = 0;
 		while (rs.next()) {
-			rs.getLong("COUNT(*)");
+			count=rs.getLong("COUNT(*)");
 		}
 		DBUtil.release(conn, ps, rs);
 		return count;
@@ -137,12 +141,18 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	}
 
 	@Override
-	public List<Employee> findLimit(int start, int len) throws SQLException {
+	public List<Employee> findLimit(String keyword ,int start, int len) throws SQLException {
 		Connection conn = DBUtil.getConnection();
-		String sql = "SELECT id,tno,name,gender,birthday,title,salary,manager_id,dept_id from t_emp Limit ?,?";
+		String sql = "SELECT id,tno,name,gender,birthday,title,salary,manager_id,dept_id " +
+				"From t_emp WHERE name LIKE ? OR title LIKE ? OR tno LIKE ? " +
+				"Limit ?,?";
 		PreparedStatement ps = conn.prepareStatement(sql);
-		ps.setObject(1, start);
-		ps.setObject(2, len);
+		String kw = "%" + keyword + "%";
+		ps.setObject(1, kw);
+		ps.setObject(2, kw);
+		ps.setObject(3, kw);
+		ps.setObject(4, start);
+		ps.setObject(5, len);
 		ResultSet rs = ps.executeQuery();
 		Employee emp = null;
 		List<Employee> list = new ArrayList<>();
@@ -169,5 +179,24 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		}
 		DBUtil.release(conn, ps, rs);
 		return list.isEmpty() ? null : list;
+	}
+
+	@Override
+	public int insert(Employee emp) throws SQLException {
+		Connection conn = DBUtil.getConnection();
+		String sql="INSERT INTO t_emp(tno,name,gender,salary,title,birthday,manager_id,dept_id) " +
+				"VALUE(?,?,?,?,?,?,?,?)";
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ps.setObject(1,emp.getTno());
+		ps.setObject(2,emp.getName());
+		ps.setObject(3,emp.getGender());
+		ps.setObject(4,emp.getSalary());
+		ps.setObject(5,emp.getTitle());
+		ps.setObject(6,emp.getBirthday());
+		ps.setObject(7,emp.getManagerId());
+		ps.setObject(8,emp.getDeptId());
+		int row = ps.executeUpdate();
+		DBUtil.release(conn,ps);
+		return row;
 	}
 }

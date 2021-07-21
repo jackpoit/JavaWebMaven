@@ -29,12 +29,12 @@ function editItem(obj) {
     $('#editModal').modal('show');
 }
 
-function searchByKw() {
-    // console.log($('#keyword').val());
-    let kwPattern=/^[\w\u4e00-\u9fa5]+|$/;
-    if (kwPattern.test($('#keyword').val())){
-        $('#keyword').parent().parent().submit();
-    }else {
-        alert("请正确输入关键词")
-    }
-}
+// function searchByKw() {
+//     // console.log($('#keyword').val());
+//     let kwPattern=/^[\w\u4e00-\u9fa5]+|$/;
+//     if (kwPattern.test($('#keyword').val())){
+//         $('#keyword').parent().parent().submit();
+//     }else {
+//         alert("请正确输入关键词")
+//     }
+// }

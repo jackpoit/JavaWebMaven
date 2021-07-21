@@ -41,7 +41,14 @@ public interface EmployeeService {
 	 * @param currentPage 当前页
 	 * @return 分页模型
 	 */
-	PageModel<Employee> findOnePage(int currentPage);
+	PageModel<Employee> findOnePage(int currentPage,String keyword);
+
+	/**
+	 * 添加员工
+	 * @param emp 员工对象
+	 * @return 是否添加成功
+	 */
+	boolean addEmp(Employee emp);
 
 
 }

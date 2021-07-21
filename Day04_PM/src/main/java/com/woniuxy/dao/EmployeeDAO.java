@@ -41,10 +41,11 @@ public interface EmployeeDAO {
 	List<Employee> findByCondition(String str) throws SQLException;
 
 	/**
-	 * 查询总记录数
+	 * 模糊查询总记录数
+	 * @param keyword 关键词
 	 * @return 总记录数
 	 */
-	long count() throws SQLException;
+	long count(String keyword) throws SQLException;
 
 	/**
 	 * 查询后截取结果
@@ -52,6 +53,13 @@ public interface EmployeeDAO {
 	 * @param len  长度
 	 * @return 结果集
 	 */
-	List<Employee> findLimit(int start, int len) throws SQLException;
+	List<Employee> findLimit(String keyword ,int start, int len) throws SQLException;
+
+	/**
+	 * 添加员工数据
+	 * @param employee 员工对象
+	 * @return 受影响行数
+	 */
+	int insert(Employee employee) throws SQLException;
 
 }
