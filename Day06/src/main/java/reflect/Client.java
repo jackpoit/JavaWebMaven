@@ -18,6 +18,9 @@ public class Client {
 		if (clazz.isAnnotationPresent(WebServlet.class)){
 			MyServlet obj = clazz.newInstance();// 获得MyServlet类实例
 			WebServlet anno = clazz.getDeclaredAnnotation(WebServlet.class); //获得注解类对象
+			//1.此处得到的anno是绑定clazz的 注解对象吗
+			//2.接口的类对象 ? 是将写的值("/add")存为属性吗
+			//3.value() 抽象方法的实质 是直接返回值吗
 			String[] value = anno.value();
 			for (String url : value) {
 				if (("/"+href).equals(url)){
