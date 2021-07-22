@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<beans>
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName">com.mysql.cj.jdbc.Driver</property>
+        <property name="jdbcUrl">jdbc:mysql://localhost:3306/tc42</property>
+        <property name="username">root</property>
+        <property name="password">123456</property>
+        <property name="initSize">5</property>
+        <property name="maxSize">10</property>
+    </bean>
+
+</beans>

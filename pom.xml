@@ -13,6 +13,7 @@
       <module>Day04_AM</module>
       <module>Day04_PM</module>
       <module>Day05</module>
+      <module>Day06</module>
   </modules>
   <packaging>pom</packaging>
 
@@ -43,8 +44,6 @@
 <!--      <scope>compile</scope>-->
 <!--    </dependency>-->
     <!--单元测试scope改成complie-->
-
-
 
     <!-- https://mvnrepository.com/artifact/com.alibaba/druid -->
     <dependency>
@@ -82,6 +81,15 @@
       <version>2.0</version>
       <scope>provided</scope>
     </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.12</version>
+      <scope>provided</scope>
+    </dependency>
+
   </dependencies>
 
   <build>

@@ -47,6 +47,20 @@ $(function () {
 
     $('#myTabs a:first').tab('show');
 
+    // 4. 文件预览
+    $('#edit_image').change(function () {
+        let file = this.files[0];
+        if(!/image\/\w+/.test(file.type)){
+            alert("文件必须为图片！");
+            return false;
+        }
+        let reader = new FileReader(); // 创建文件预览器
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+            $('#showImg').html("<img src="+this.result+" width='130';height='130'>");
+        }
+    })
+
 
 })
 
@@ -96,7 +110,6 @@ function getUserPage(Page) {
     curPage = Page;
 
 }
-asa
 function getPagePath(obj) {
     if ($(obj).text() === '«') {
         if (curPage > 1) {
@@ -145,3 +158,4 @@ function pageOneFailed() {
         $('#pageOneModal').modal('hide')
     }, 2000)
 }
+
