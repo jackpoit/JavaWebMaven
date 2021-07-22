@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<employees xmlns="http://www.woniuxy.com"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.woniuxy.com schema/xsd/emp.xsd">
+
+    <emp id="WNSH0001">
+        <name>张三</name>
+        <gender>male</gender>
+        <age>18</age>
+    </emp>
+</employees>

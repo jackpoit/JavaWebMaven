@@ -8,7 +8,8 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface WebServlet {
-	String[] value() ;
-	String[] urlPattrerns() default "";
 	String name() default "";
+	String[] value() default "";
+	String[] urlPattrerns() default "";
+
 }

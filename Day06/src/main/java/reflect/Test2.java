@@ -13,6 +13,7 @@ public class Test2 {
 		Class<?> clazz = Class.forName("com.woniuxy.entity.User");
 		//2.通过字节码对象来创建实例对象    (new的底层)
 		Object obj = clazz.newInstance();
+
 		//默认调用无参构造初始化对象
 		//构造方法是用来初始化的 不是用来创建对象的
 		//一定要给类写无参构造

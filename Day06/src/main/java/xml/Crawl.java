@@ -37,8 +37,9 @@ public class Crawl {
 		Document document = conn.get(); //获取响应正文
 //		System.out.println(document);
 
-		//2.数据清洗 通过nXPath来解析
+		//2.数据清洗 通过XPath来解析
 		JXDocument doc=new JXDocument(document);
+//		doc.sel()
 		List<JXNode> nodes = doc.selN("//div[@class=pcon]/div[@class=ht]/a");
 		for (JXNode a : nodes) {
 			String href = a.sel("/@href").get(0).toString();
