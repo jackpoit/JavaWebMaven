@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woniuxy.mapper.EmployeeMapper">
+
+<!--添<insert>,删<delete>,改<update>,查<select>的标签
+    id="方法名"
+        parameterType="参数的类型"  面试:Mybatis如何传参的
+        parameterType="封装的对象的类的全限定名"   [简单类型]返回的时候
+        resultMap="" :最完整的ORM映射           [复杂类型]
+
+-->
+
+    <!--Employee findById(int id);   现在的#{}等效于以前的"?"-->
+    <select id="findById" parameterType="int" resultType="com.woniuxy.entity.Employee">
+        SELECT * FROM t_emp WHERE id=#{value}
+    </select>
+
+<!--List<Employee> findAll();-->
+    <select id="findAll" resultType="com.woniuxy.entity.Employee">
+        SELECT * FROM t_emp
+    </select>
+
+<!--int deleteById(int id);-->
+    <delete id="deleteById" >
+        DELETE FROM t_emp WHERE id=#{value}
+    </delete>
+
+</mapper>

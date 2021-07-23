@@ -34,7 +34,12 @@ public class Test3 {
 		password.setAccessible(true);
 		//只要使用了Declared,就要关闭程序对修饰符的自检
 
+//		password.set(obj,123456);
 		password.set(obj,"123456");
+
+		//set内部会自动强转
+
+
 		User u=(User) obj;
 		System.out.println(u);
 

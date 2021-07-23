@@ -3,6 +3,7 @@ package com.woniuxy.util;
 import com.woniuxy.entity.Employee;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class DBUtilTest {
 			List<Employee> list = DBUtil.selectAll(sql, Employee.class,20);
 			for (Employee employee : list) {
 				System.out.println(employee);
+				System.out.println(employee.getSalary().add(new BigDecimal("111")));
 			}
 
 		} catch (SQLException throwables) {
