@@ -5,6 +5,11 @@
 <configuration>
     <!--加载属性文件-->
     <properties resource="db.properties"/>
+
+<!--    设置参数-->
+<!--    <settings>-->
+<!--        <setting name="mapUnderscoreToCamelCase" value="true"/>-->
+<!--    </settings>-->
     <!--数据库环境-->
     <environments default="development">
         <environment id="development">
@@ -20,5 +25,6 @@
 <!--配置写好的SQL映射文件-->
     <mappers>
         <mapper resource="mapper/EmployeeMapper.xml"/>
+        <mapper resource="mapper/AccountMapper.xml"/>
     </mappers>
 </configuration>

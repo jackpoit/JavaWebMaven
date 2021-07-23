@@ -41,4 +41,9 @@ public class Employee implements Serializable {
 		this.imagePath = imagePath;
 	}
 
+	public Employee(String tno, String name, String gender) {
+		this.tno = tno;
+		this.name = name;
+		this.gender = gender;
+	}
 }

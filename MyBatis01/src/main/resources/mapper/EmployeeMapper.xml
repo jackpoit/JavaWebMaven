@@ -7,8 +7,8 @@
 <!--添<insert>,删<delete>,改<update>,查<select>的标签
     id="方法名"
         parameterType="参数的类型"  面试:Mybatis如何传参的
-        parameterType="封装的对象的类的全限定名"   [简单类型]返回的时候
-        resultMap="" :最完整的ORM映射           [复杂类型]
+        resultType="封装的对象的类的全限定名"   [简单类型]返回的时候
+        resultMap="" :最完整的ORM映射        [复杂类型]
 
 -->
 
