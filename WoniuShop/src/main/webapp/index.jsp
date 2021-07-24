@@ -9,6 +9,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
+    <%--设置根路径--%>
+    <%
+        String basePath = request.getScheme() + "://" + request.getServerName() + ":"
+                + request.getServerPort() + request.getContextPath() + "/";
+    %>
+    <base href="<%=basePath%>">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,18 +27,19 @@
 
 </head>
 <body>
+
 <!--头部导航-->
 <div class="navbar-fixed-top" style="background:#333;height:60px; line-height: 60px;">
     <div class="container">
         <div class="col-md-2 navbar-left" style="height: 60px;line-height: 60px">
-            <img src="imges/user/4.jpg" width="40px" class="img-circle" alt="">
+            <img src="images/user/4.jpg" width="40px" class="img-circle" alt="">
             <span class="person" id="user-name-label" onclick="$('#loginModal').modal('show')">
             请登录
             </span>
         </div>
 
         <div class="col-md-5 navbar-right">
-            <button type="button" class="btn btn-primary" >
+            <button type="button" class="btn btn-primary">
                 <span class="glyphicon glyphicon-home"></span>
                 首页
             </button>
@@ -44,11 +51,11 @@
                 <span class="glyphicon glyphicon-plus"></span>
                 注册
             </button>
-            <button type="button" class="btn btn-success" onclick="openAdmin()">
+            <button type="button" class="btn btn-success" onclick="location.href = 'page/user/user.jsp';">
                 <span class="glyphicon glyphicon-user"></span>
                 个人中心
             </button>
-            <button type="button" class="btn btn-warning" onclick="location.href='shopcart.jsp'">
+            <button type="button" class="btn btn-warning" onclick="location.href='page/user/shopcart.jsp'">
                 <span class="glyphicon glyphicon-shopping-cart"></span>
                 购物车
             </button>
@@ -60,7 +67,7 @@
 <!--菜单栏-->
 <div class="container" style="margin-top:60px; line-height: 100px;">
     <div class="col-md-1" style="margin-top: 25px;">
-        <img src="imges/logo.jpg" width="100px" height="50px" alt="">
+        <img src="images/logo.jpg" width="100px" height="50px" alt="">
     </div>
     <div class="col-md-8" style="line-height: 80px;">
         <ul class="nav nav-justified">
@@ -81,7 +88,8 @@
                 <input type="text" class="form-control" id="kw" name="keyword" style="height: 40px">
             </div>
             <div class="form-group">
-                <button type="button" class="btn btn-primary" style="height: 40px" onclick="$('#loginModal').modal('show')">
+                <button type="button" class="btn btn-primary" style="height: 40px"
+                        onclick="$('#loginModal').modal('show')">
                     搜索
                 </button>
             </div>
@@ -121,16 +129,16 @@
             <!--2.定义若干轮播项 item-->
             <div class="carousel-inner">
                 <div class="item active">
-                    <img src="imges/bg1.png" alt="">
+                    <img src="images/bg1.png" alt="">
                 </div>
                 <div class="item">
-                    <img src="imges/bg2.webp" alt="">
+                    <img src="images/bg2.webp" alt="">
                 </div>
                 <div class="item">
-                    <img src="imges/bg3.webp" alt="">
+                    <img src="images/bg3.webp" alt="">
                 </div>
                 <div class="item">
-                    <img src="imges/bg4.webp" alt="">
+                    <img src="images/bg4.webp" alt="">
                 </div>
             </div>
             <!--3. 轮播的翻页：上一页和下一页-->
@@ -151,7 +159,7 @@
     <div class="row">
         <div class="col-xs-6 col-sm-4 col-md-3">
             <div class="thumbnail pro-item">
-                <img src="imges/p1.webp" alt="">
+                <img src="images/p1.webp" alt="">
                 <div class="caption">
                     <h4 class="title">Redmi Note 10 Pro</h4>
                     <p class="info">天玑1100年度旗舰芯 / VC液冷散热 / 67W 闪充 5000mAh 大电池 </p>
@@ -162,7 +170,7 @@
 
         <div class="col-xs-6 col-sm-4 col-md-3">
             <div class="thumbnail pro-item">
-                <img src="imges/p2.webp" alt="">
+                <img src="images/p2.webp" alt="">
                 <div class="caption">
                     <h4 class="title">Redmi Note 10 Pro</h4>
                     <p class="info">天玑1100年度旗舰芯 / VC液冷散热 / 67W 闪充 5000mAh 大电池 </p>
@@ -173,7 +181,7 @@
 
         <div class="col-xs-6 col-sm-4 col-md-3">
             <div class="thumbnail pro-item">
-                <img src="imges/p3.webp" alt="">
+                <img src="images/p3.webp" alt="">
                 <div class="caption">
                     <h4 class="title">Redmi Note 10 Pro</h4>
                     <p class="info">天玑1100年度旗舰芯 / VC液冷散热 / 67W 闪充 5000mAh 大电池 </p>
@@ -184,7 +192,7 @@
 
         <div class="col-xs-6 col-sm-4 col-md-3">
             <div class="thumbnail pro-item">
-                <img src="imges/p4.webp" alt="">
+                <img src="images/p4.webp" alt="">
                 <div class="caption">
                     <h4 class="title">Redmi Note 10 Pro</h4>
                     <p class="info">天玑1100年度旗舰芯 / VC液冷散热 / 67W 闪充 5000mAh 大电池 </p>
@@ -195,7 +203,7 @@
 
         <div class="col-xs-6 col-sm-4 col-md-3">
             <div class="thumbnail pro-item">
-                <img src="imges/p5.webp" alt="">
+                <img src="images/p5.webp" alt="">
                 <div class="caption">
                     <h4 class="title">Redmi Note 10 Pro</h4>
                     <p class="info">天玑1100年度旗舰芯 / VC液冷散热 / 67W 闪充 5000mAh 大电池 </p>
@@ -206,7 +214,7 @@
 
         <div class="col-xs-6 col-sm-4 col-md-3">
             <div class="thumbnail pro-item">
-                <img src="imges/p6.webp" alt="">
+                <img src="images/p6.webp" alt="">
                 <div class="caption">
                     <h4 class="title">Redmi Note 10 Pro</h4>
                     <p class="info">天玑1100年度旗舰芯 / VC液冷散热 / 67W 闪充 5000mAh 大电池 </p>
@@ -217,7 +225,7 @@
 
         <div class="col-xs-6 col-sm-4 col-md-3">
             <div class="thumbnail pro-item">
-                <img src="imges/p1.webp" alt="">
+                <img src="images/p1.webp" alt="">
                 <div class="caption">
                     <h4 class="title">Redmi Note 10 Pro</h4>
                     <p class="info">天玑1100年度旗舰芯 / VC液冷散热 / 67W 闪充 5000mAh 大电池 </p>
@@ -249,7 +257,7 @@
                 <h4 class="modal-title text-center" style="color: #FFFFFF;letter-spacing: 5px">用户注册</h4>
             </div>
             <div class="modal-body">
-                <form action="register" class="form-horizontal" method="post">
+                <form action="register" class="form-horizontal" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="r_username" class="control-label col-md-2 ">用户名</label>
                         <div class="col-md-5">
@@ -384,21 +392,17 @@
         </div>
     </div>
 </div>
-<script>
-    <%
-       if (request.getAttribute("registerRows")!=null){
-       	out.write("registerSuccess()");
-       }
-    %>
-</script>
-<script>
-    <%
-        String name=(String) request.getAttribute("name");
-        if (request.getAttribute("loginStr")!=null){
-       	out.write("loginRes('"+name+"')");  //此处name要加引号 不然就 undefined
-       }
-    %>
-</script>
-<%--<div class="sr-only" onchange="openLogin()">${rows}</div>--%>
+<c:if test="${!empty name}">
+    <script>
+        loginRes('${name}');
+    </script>
+</c:if>
+
+<c:if test="${!empty registerFlag}">
+    <script>
+        registerSuccess();
+    </script>
+</c:if>
+
 </body>
 </html>

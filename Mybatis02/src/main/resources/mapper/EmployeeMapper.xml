@@ -9,7 +9,6 @@
             parameterType="参数的类型"  面试:Mybatis如何传参的
             parameterType="封装的对象的类的全限定名"   [简单类型]返回的时候
             resultMap="" :最完整的ORM映射           [复杂类型]
-
     -->
 
     <!--    1.int add(Employee employee);//添加员工对象-->
@@ -144,7 +143,7 @@
         SELECT name,title FROM t_emp WHERE name is not null
     </select>
 
-    <!--10.List<Employee> findLikeName();//模糊查询-->
+    <!--10.List<Employee> findLikeName(String keyword);//模糊查询-->
     <select id="findLikeName" resultMap="baseMap">
         SELECT
         <include refid="baseColumn"/>
@@ -157,7 +156,7 @@
         SELECT
         <include refid="baseColumn"/>
         FROM t_emp
-        WHERE name LIKE CONCAT('%',#{keyword},'%')
+        WHERE name LIKE CONCAT('%',#{kw},'%')
         LIMIT #{start},#{num}
     </select>
 

@@ -1,6 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <%--设置根路径--%>
+    <%
+        String basePath = request.getScheme() + "://" + request.getServerName() + ":"
+                + request.getServerPort() + request.getContextPath() + "/";
+    %>
+    <base href="<%=basePath%>">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,7 +16,7 @@
     <script src="bootstrap/js/bootstrap.js"></script>
 
 </head>
-<body style="background: url('imges/loginBG.JPG') no-repeat center ;background-size: 100% 100%">
+<body style="background: url('images/loginbg.jpg') no-repeat center ;background-size: 100% 100%">
 
 <div class="container col-md-6 col-md-offset-3">
     <div class="container col-md-10 col-md-offset-1"
@@ -40,7 +46,7 @@
                 <div class="form-group ">
                     <div class="col-md-6 col-md-offset-3 ">
                         <button type="submit" class="btn btn-primary btn-block">Login</button>
-                        <a href="admin.jsp" class="btn btn-primary btn-block">Login</a>
+                        <a href="page/admin/backstage.jsp" class="btn btn-primary btn-block">Login</a>
                     </div>
                 </div>
 

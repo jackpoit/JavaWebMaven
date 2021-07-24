@@ -110,7 +110,7 @@ public class EmployeeMapperTest {
 		SqlSession sqlSession = DBUtil.openSqlSession(true);
 		EmployeeMapper mapper = sqlSession.getMapper(EmployeeMapper.class);
 		Employee employee = new Employee();
-		employee.setTno("WNSH1227");
+		employee.setTno("WNSH1400");
 		employee.setName("苇名一心");
 		employee.setTitle("修罗");
 		int row = mapper.add(employee);

@@ -7,39 +7,39 @@
     content: '';
     clear: both;
 }
-.container{
+.shopcart .container{
     width: 990px;
     margin: 0 auto;
 }
-.nav{
+.shopcart .nav{
     height: 40px;
     background-color: #B0B0B0;
 }
-.title .container{
+.shopcart .title .container{
     box-sizing: border-box;
     height: 95px;
     padding: 20px 0 40px;
     background-color: #c8bfbf;
 }
-.title .img{
+.shopcart .title .img{
     float: left;
     width: 180px;
     height: 45px;
     line-height: 80px;
     background-color: #ff6700;
 }
-.title .search{
+.shopcart .title .search{
     float: right;
     height: 36px;
 
 }
-.title .search input{
+.shopcart .title .search input{
     border: 3px #ff6700 solid;
     float: left;
     width: 340px;
     height: 30px;
 }
-.title .search button{
+.shopcart .title .search button{
     text-align: center;
     border: none;
     float: left;
@@ -57,7 +57,7 @@
 .shopcart{
     width: 1000px;
     height: 560px;
-    margin: 50px auto;
+    margin: 100px auto;
     position: relative;
 }
 .shopcart .h2-title{

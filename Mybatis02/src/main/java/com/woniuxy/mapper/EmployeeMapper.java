@@ -35,7 +35,7 @@ public interface EmployeeMapper {
 
 	List<HashMap<String,Object>> findNameAndTitle(); //返回HashMap<列名,值>
 
-	List<Employee> findLikeName(String str);//模糊查询
+	List<Employee> findLikeName(String keyword);//模糊查询
 
 	List<Employee> findLimit(@Param("kw") String keyword ,@Param("start") int start,@Param("num") int num);
 	//模糊查询

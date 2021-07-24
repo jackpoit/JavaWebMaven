@@ -16,7 +16,7 @@ import java.io.InputStream;
 public class DBUtil {
 	private static SqlSessionFactory factory;
 	private static ThreadLocal<SqlSession> threadLocal=new ThreadLocal<>();
-	//类变量 threadLoacl是共用的 但,每有一个线程调用openSqlSession 就会在他的map里添加一个键值对
+	//类变量 threadLocal是共用的 ,每有一个线程调用openSqlSession 就会在他的map里添加一个键值对
 
 	//在类加载时优先加载且只会执行一次(一般用于初始化操作的
 	static {
@@ -32,8 +32,8 @@ public class DBUtil {
 		}
 	}
 
+
 	/**
-	 *
 	 * @return 返回一个基于Mybatis的sqlSession会话(本质就是数据库连接对象)
 	 * factory.openSession(false); 手动提交(默认) 用于事务
 	 * factory.openSession(true);  自动提交
@@ -45,7 +45,6 @@ public class DBUtil {
 			sqlSession = factory.openSession(flag); //新建一个会话
 			threadLocal.set(sqlSession); //把新方法放进去
 		}
-//		System.out.println(sqlSession);
 		return sqlSession;
 	}
 
@@ -66,7 +65,7 @@ public class DBUtil {
 	 * @return 接口Mapper的代理对象
 	 */
 	public static <T> T getTransMapper(Class<T> clazz){
-		SqlSession sqlSession = openSqlSession(false); //自动提交
+		SqlSession sqlSession = openSqlSession(false); //手动提交
 		return sqlSession.getMapper(clazz);
 	}
 
@@ -82,7 +81,7 @@ public class DBUtil {
 	 */
 	public static void rollback(){
 		SqlSession sqlSession = openSqlSession(false);
-		sqlSession.commit();
+		sqlSession.rollback();
 	}
 	/**
 	 * 归还sqlSession[事务+非事务]
@@ -90,7 +89,6 @@ public class DBUtil {
 	public static void close(){
 		SqlSession sqlSession = threadLocal.get();
 		if (sqlSession!=null){
-//			System.out.println(sqlSession);
 			sqlSession.close();
 		}
 	}
