@@ -261,7 +261,7 @@
                     <div class="form-group">
                         <label for="r_username" class="control-label col-md-2 ">用户名</label>
                         <div class="col-md-5">
-                            <input type="text" id="r_username" name="r_username" class="form-control">
+                            <input type="text" id="r_username" name="r_username" class="form-control" pattern="[a-zA-Z]{6-16}">
                         </div>
                         <div class="col-md-5 " style="line-height: 2"><span>用户名只能是字母且6-16位</span></div>
                         <span></span>
@@ -269,7 +269,7 @@
                     <div class="form-group">
                         <label for="r_pwd" class="control-label col-md-2">密码</label>
                         <div class="col-md-5">
-                            <input type="password" id="r_pwd" name="r_pwd" class="form-control">
+                            <input type="password" id="r_pwd" name="r_pwd" class="form-control" pattern="\d{6,16}">
                         </div>
                         <div class="col-md-4 " style="line-height: 2"><span>6-16位字母数组下划线组成</span></div>
                         <span></span>

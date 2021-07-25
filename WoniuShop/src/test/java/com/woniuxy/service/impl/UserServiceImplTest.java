@@ -24,4 +24,16 @@ public class UserServiceImplTest {
 		DBUtil.commit();
 		DBUtil.close();
 	}
+
+
+	@Test
+	public void delete(){
+		UserMapper mapper = DBUtil.getMapper(UserMapper.class);
+		Integer[] ids=new Integer[5];
+		ids[0]=71;
+		ids[1]=73;
+		ids[3]=74;
+		int i = mapper.deleteByIds(ids);
+		System.out.println(i);
+	}
 }

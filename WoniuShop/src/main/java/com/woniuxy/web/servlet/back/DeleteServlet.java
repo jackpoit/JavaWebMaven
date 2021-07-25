@@ -19,19 +19,25 @@ public class DeleteServlet extends HttpServlet {
 	UserServiceImpl usi = new UserServiceImpl();
 
 	@Override
-	protected void service(HttpServletRequest req, HttpServletResponse resp) throws  IOException {
+	protected void service(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		req.setCharacterEncoding("utf-8");
 		resp.setContentType("text/html;charset=utf-8");
-		String id = req.getParameter("uid");
-		if (id!=null){
-			boolean removeFlag=usi.remove(Integer.parseInt(id));
-			if (removeFlag){
-				resp.getWriter().write("<script>alert('删除成功')</script>");
-
-			}else {
-				resp.getWriter().write("<script>alert('删除失败')</script>");
+		String[] uids = req.getParameterValues("uid");
+		Integer[] ids = new Integer[uids.length];
+		for (int i = 0; i < ids.length; i++) {
+			if (uids[i] != null){
+				ids[i] = Integer.parseInt(uids[i]);
 			}
 		}
-		resp.setHeader("refresh","0;url="+req.getContextPath()+"/page/admin/page");
+		boolean removeFlag = usi.remove(ids);
+		if (removeFlag) {
+			resp.getWriter().write("<script>alert('删除成功')</script>");
+
+		} else {
+			resp.getWriter().write("<script>alert('删除失败')</script>");
+		}
+
+		resp.setHeader("refresh", "0;url=" + req.getContextPath() + "/page/admin/page");
 
 	}
 }

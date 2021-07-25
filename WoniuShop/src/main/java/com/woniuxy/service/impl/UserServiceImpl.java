@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
 		//创建分页模型
 		PageModel<User> model = new PageModel<>();
 		//1.封装一页显示多少条数据
-		int pageSize = 3;
+		int pageSize = 5;
 		model.setPageSize(pageSize);
 		//2.封装当前页码
 		model.setCurrentPage(currentPage);
@@ -73,9 +73,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean remove(int id) {
+	public boolean remove(Integer...ids) {
 		UserMapper mapper = DBUtil.getMapper(UserMapper.class);
-		int row = mapper.deleteByIds(id);
+		int row = mapper.deleteByIds(ids);
 		DBUtil.close();
 		return row > 0;
 	}

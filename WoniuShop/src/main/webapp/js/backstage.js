@@ -10,6 +10,7 @@ function addUser() {
 
     $('#addUserModal').modal('show');
 }
+
 function editUser(obj) {
     $('#showImg').hide(); // 让图片预览隐藏
     let tds = $(obj).parent().parent().children();
@@ -27,7 +28,7 @@ function editUser(obj) {
         $('#elevel1').attr("checked", true)
     } else if ($('#elevel2').val() === level) {
         $('#elevel2').attr("checked", true)
-    } else{
+    } else {
         $('#elevel3').attr("checked", true)
     }
 
@@ -37,7 +38,7 @@ function editUser(obj) {
 
 $(function () {
     let imgFlag = false;
-    let addFlag = false;
+    let addFlag = true;
     // 1. 头像预览
     $('#eImg').change(function () {
         let file = this.files[0];
@@ -58,7 +59,6 @@ $(function () {
         }
     });
 
-
     //2. 手动提交文件上传的表单
     $('#user_upload').click(function () {
         if ($('#eid').val() !== '' && imgFlag) {
@@ -67,6 +67,7 @@ $(function () {
             alert("请选择正确的头像图片");
         }
     });
+
 
     $('#r_img').change(function () {
         let file = this.files[0];
@@ -92,3 +93,64 @@ $(function () {
         }
     })
 })
+
+
+//全选全消
+
+$(function () {
+    let $users = $('input[name="users"]');
+    let total =  $('input[name="users"]').length;
+
+    //全选全消
+    $('#uall').click(function () {
+        let flag = this.checked;
+        $users.prop("checked", flag);
+    });
+    $users.click(function () {
+        let count = $('input[name="users"]').filter(":checked").length;
+        $('#uall').prop("checked", count === total);
+
+    });
+
+});
+
+function deleteUsers() {
+    let $ids = $('input[name="users"]').filter(":checked")
+    if ($ids.length === 0) {
+        alert("没有选择的用户")
+        return;
+    }
+    let idStr = "";
+    let idRes = "";
+    for (let i = 0; i < $ids.length; i++) {
+
+        idRes += "uid=" + $ids.eq(i).val();
+        idStr += $ids.eq(i).val();
+        if (i !== $ids.length - 1) {
+            idStr += ",";
+            idRes += "&"
+        }
+    }
+    let flag = confirm("您确认要删除" + idStr + "号用户吗?");
+    if (flag) {
+        location.href = "http://localhost:8080/WoniuShop/page/admin/delete?" + idRes;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

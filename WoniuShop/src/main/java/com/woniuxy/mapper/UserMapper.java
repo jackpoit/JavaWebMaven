@@ -46,7 +46,7 @@ public interface UserMapper {
 	 */
 	long count(String keyword);
 
-	int deleteByIds(@Param("ids") int...ids);//根据多个id来删除
+	int deleteByIds(@Param("ids") Integer...ids);//根据多个id来删除
 
 	int update(User user);//更新用户对象
 }

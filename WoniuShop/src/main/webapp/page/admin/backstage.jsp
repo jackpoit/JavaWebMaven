@@ -86,7 +86,7 @@
                         </div>
 
                         <div class="col-md-4 col-md-offset-1">
-                            <button type="button" class="btn btn-danger">
+                            <button type="button" class="btn btn-danger" onclick="deleteUsers()">
                                 <span class="glyphicon glyphicon-remove-sign"></span> 批量删除
                             </button>
                             <button type="button" class="btn btn-primary" onclick="addUser();">
@@ -119,7 +119,7 @@
                         </tr>
                         <c:forEach var="user" items="${userPageModel.list}">
                             <tr>
-                                <td><input type="checkbox" name="users" value=""></td>
+                                <td><input type="checkbox" name="users" value="${user.id}"></td>
                                 <td>${user.id}</td>
                                 <td>${user.username}</td>
                                 <td>${user.phone}</td>

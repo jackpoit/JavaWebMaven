@@ -58,7 +58,9 @@
     <delete id="deleteByIds">
         DELETE FROM t_user WHERE id in
         <foreach collection="ids" item="id" open="(" close=")" separator=",">
-            #{id}
+            <if test="id!=null ">
+                #{id}
+            </if>
         </foreach>
     </delete>
 

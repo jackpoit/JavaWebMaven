@@ -36,26 +36,29 @@ public class RegisterServlet extends HttpServlet {
 
 		String imgPath = "http://localhost:8080/WoniuShop/images/user/1.jpg";
 		Part part = req.getPart("r_img");
-		if (part != null) {
-			String fileName = part.getSubmittedFileName();
-			String suffix = fileName.substring(fileName.lastIndexOf(".")); // 文件的扩展名
-			fileName = "head" + suffix;
-			String uploadPath = "D:/MyProgram/Tomcat/nginx-1.18.0/html/upload/" + username;
-			File file = new File(uploadPath);
-			if (!file.exists()) {
-				file.mkdirs(); // 创建用户目录用于存放自己的图片
-			}
-			uploadPath = uploadPath + File.separator + fileName;
-			// 上传到服务器
-			part.write(uploadPath);
-			imgPath = "http://localhost/upload/" + username + "/" + fileName;
-			user.setImagePath(imgPath);
-			boolean flag = usi.registerUser(user);
 
+		if (part != null) {     //后台界面的
+			if (part.getSize() == 0) { //有name 但不传文件
+				user.setImagePath(imgPath);
+			} else {	//有name 传文件
+				String fileName = part.getSubmittedFileName();
+				String suffix = fileName.substring(fileName.lastIndexOf(".")); // 文件的扩展名
+				fileName = "head" + suffix;
+				String uploadPath = "D:/MyProgram/Tomcat/nginx-1.18.0/html/upload/" + username;
+				File file = new File(uploadPath);
+				if (!file.exists()) {
+					file.mkdirs(); // 创建用户目录用于存放自己的图片
+				}
+				uploadPath = uploadPath + File.separator + fileName;
+				// 上传到服务器
+				part.write(uploadPath);
+				imgPath = "http://localhost/upload/" + username + "/" + fileName;
+				user.setImagePath(imgPath);
+			}
+			boolean flag = usi.registerUser(user);
 			resp.getWriter().write("<script>alert('" + (flag ? "添加成功" : "添加失败") + "')</script>");
 			resp.setHeader("refresh", "0;url=" + req.getContextPath() + "/page/admin/page");
-
-		} else {
+		} else {  //无name  index登录界面的
 			user.setImagePath(imgPath);
 			boolean flag = usi.registerUser(user);
 

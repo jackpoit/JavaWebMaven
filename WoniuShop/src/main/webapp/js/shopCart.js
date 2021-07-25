@@ -83,6 +83,4 @@ function delPro(obj) {
         let count = $('input[name="product"]').filter(":checked").length;
         $('#all').prop("checked", count === total);
     }
-
-
 }

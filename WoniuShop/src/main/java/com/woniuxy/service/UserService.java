@@ -16,7 +16,7 @@ public interface UserService {
 
 	PageModel<User> findOnePage(String keyword,int currentPage);
 
-	boolean	remove(int id);
+	boolean	remove(Integer... ids);
 
 	boolean edit(User user);
 }

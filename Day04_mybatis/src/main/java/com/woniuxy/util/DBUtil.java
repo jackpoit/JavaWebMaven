@@ -93,7 +93,7 @@ public class DBUtil {
 //			System.out.println(sqlSession);
 			sqlSession.close();
 		}
-//		threadLocal.remove();
+		threadLocal.remove();
 	}
 
 
