@@ -7,9 +7,9 @@
     <properties resource="db.properties"/>
 
 <!--    设置参数-->
-    <settings>
-        <setting name="defaultExecutorType" value="BATCH" />
-    </settings>
+<!--    <settings>-->
+<!--        <setting name="defaultExecutorType" value="BATCH" />-->
+<!--    </settings>-->
 <!--    <settings>-->
 <!--        <setting name="mapUnderscoreToCamelCase" value="true"/>-->
 <!--    </settings>-->

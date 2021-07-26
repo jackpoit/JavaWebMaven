@@ -28,12 +28,5 @@
 
     </dependencies>
 
-    <build>
-        <finalName>Day04_PM</finalName>
-        <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
-            <plugins>
 
-            </plugins>
-        </pluginManagement>
-    </build>
 </project>

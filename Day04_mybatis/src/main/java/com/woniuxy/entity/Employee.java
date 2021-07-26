@@ -16,8 +16,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Employee implements Serializable {
-	private static final long serialVersionUID = -8758717030059239984L;
+public class Employee  {
 	private Integer id;
 	private String tno;
 	private String name;

@@ -25,6 +25,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public boolean remove(int id) {
 		EmployeeMapper mapper = DBUtil.getMapper(EmployeeMapper.class);
+		System.out.println(mapper);
 		int row = mapper.deleteByIds(id);
 		DBUtil.close();
 		return row > 0;
@@ -35,7 +36,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 		if (emp == null || emp.getId() == null)
 			return false;
 		EmployeeMapper mapper = DBUtil.getMapper(EmployeeMapper.class);
+
 		int row = mapper.update(emp);
+		System.out.println("dasgdgsa:::row"+row);
 		DBUtil.close();
 		return row > 0;
 	}
@@ -74,7 +77,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 		model.setNext(currentPage == totalPage ? 1 : currentPage + 1);
 		//7.查询当前页的数据
 		int start = (currentPage - 1) * pageSize; // 查询的起始行
-//		mapper = DBUtil.getMapper(EmployeeMapper.class);
 		List<Employee> list = mapper.findLimit(keyword, start, pageSize);
 		model.setList(list);
 		//8. 封装模糊关键字

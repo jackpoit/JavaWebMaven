@@ -6,6 +6,7 @@
     <!--加载属性文件-->
     <properties resource="db.properties"/>
 
+
 <!--    设置参数-->
 <!--    <settings>-->
 <!--        <setting name="mapUnderscoreToCamelCase" value="true"/>-->

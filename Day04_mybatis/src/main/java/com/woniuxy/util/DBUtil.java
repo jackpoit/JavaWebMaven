@@ -16,7 +16,15 @@ import java.io.InputStream;
 public class DBUtil {
 	private static SqlSessionFactory factory;
 	private static ThreadLocal<SqlSession> threadLocal=new ThreadLocal<>();
-	//类变量 threadLoacl是共用的 但,每有一个线程调用openSqlSession 就会在他的map里添加一个键值对
+	//每个servlet -->serviceImpl -->DButil --> ThreadLocal<SqlSession> threadLocal
+	//不同的请求 的threadLocal是不同的 调用不会出问题
+	//同一请求 (比如pageServlet) 的threadLocal都是相同的
+	//如果执行完一个请求后,关闭了sqlSession,  sqlSession没有归还,还存在在该线程的ThreadLocalMap中
+	//下次如果该请求还是这个线程的,调用的就是这个sqlSession 就会报Executor was closed的错误
+	//但如果该请求是不同的线程处理的,就不会报错,
+	// 因为不同请求的ThreadLocalMap不同,sqlSession存在这个map中只是key是相同的(都是同一个threadLocal)
+	//所以要remove 不然即使sqlSession close()了,也会因为这个threadLocal的引用而得不到回收 ?
+
 
 	//在类加载时优先加载且只会执行一次(一般用于初始化操作的
 	static {
@@ -95,8 +103,6 @@ public class DBUtil {
 		}
 		threadLocal.remove();
 	}
-
-
 
 
 

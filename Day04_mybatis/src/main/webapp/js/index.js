@@ -2,7 +2,7 @@
 function deleteEmp(id) {
     let flag = confirm("您确定要删除"+id+"号员工吗？");
     if(flag){
-        location.href = "http://localhost:8888/Day04_PM/delete?id="+id;
+        location.href = "http://localhost:8080/Day04_PM/delete?id="+id;
     }
 }
 
@@ -13,12 +13,12 @@ function editItem(obj) { // obj默认是JS对象
     let eid = tds.eq(0).text();
     let tno = tds.eq(1).text();
     let name = tds.eq(2).text();
-    let gender = tds.eq(3).text();
-    let birthday = tds.eq(4).text();
-    let title = tds.eq(5).text();
-    let salary = tds.eq(6).text();
-    let managerId = tds.eq(7).text();
-    let deptId = tds.eq(8).text();
+    let gender = tds.eq(4).text();
+    let birthday = tds.eq(5).text();
+    let title = tds.eq(6).text();
+    let salary = tds.eq(7).text();
+    let managerId = tds.eq(8).text();
+    let deptId = tds.eq(9).text();
     //2. 将选择的数据同步到模态框中
     $('#eid').val(eid);
     $('#tno').val(tno);

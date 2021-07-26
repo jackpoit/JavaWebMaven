@@ -150,7 +150,7 @@
                                   </div>
                               </div>
                               <div class="form-group">
-                                  <label for="ename" class="col-sm-3 control-label">生日</label>
+                                  <label for="birthday" class="col-sm-3 control-label">生日</label>
                                   <div class="col-sm-9">
                                       <input type="date" class="form-control" id="birthday" readonly>
                                   </div>

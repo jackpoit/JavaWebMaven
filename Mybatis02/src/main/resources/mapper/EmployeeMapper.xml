@@ -7,13 +7,13 @@
     <!--添<insert>,删<delete>,改<update>,查<select>的标签
         id="方法名"
             parameterType="参数的类型"  面试:Mybatis如何传参的
-            parameterType="封装的对象的类的全限定名"   [简单类型]返回的时候
+            resultType="封装的对象的类的全限定名"   [简单类型]返回的时候
             resultMap="" :最完整的ORM映射           [复杂类型]
     -->
 
     <!--    1.int add(Employee employee);//添加员工对象-->
     <insert id="add" parameterType="com.woniuxy.entity.Employee" useGeneratedKeys="true" keyColumn="id"
-            keyProperty="id">
+            keyProperty="id"  >
         INSERT INTO t_emp(tno, `name`, gender, birthday, title, salary, manager_id, dept_id, image)
         VALUE (#{tno},#{name},#{gender},#{birthday},#{title},#{salary},#{managerId},#{deptId},#{imagePath})
     </insert>
@@ -140,7 +140,7 @@
 
     <!--9.HashMap<String,Object> findNameAndTitle(); //返回HashMap<列名,值>-->
     <select id="findNameAndTitle" resultType="hashmap">
-        SELECT name,title FROM t_emp WHERE name is not null
+        SELECT name,title,tno FROM t_emp WHERE name is not null
     </select>
 
     <!--10.List<Employee> findLikeName(String keyword);//模糊查询-->
