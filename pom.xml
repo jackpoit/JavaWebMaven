@@ -17,6 +17,7 @@
         <module>MyBatis01</module>
         <module>Mybatis02</module>
         <module>Day04_mybatis</module>
+        <module>Mybatis03</module>
     </modules>
     <packaging>pom</packaging>
 

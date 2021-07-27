@@ -1,4 +1,4 @@
-package com.woniuxy.util;
+package com.woniuxy.utils;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -17,13 +17,28 @@ public class DBUtil {
 	private static SqlSessionFactory factory;
 	private static ThreadLocal<SqlSession> threadLocal=new ThreadLocal<>();
 	//每个servlet -->serviceImpl -->DButil --> ThreadLocal<SqlSession> threadLocal
-	//不同的请求 的threadLocal是不同的 调用不会出问题
-	//同一请求 (比如pageServlet) 的threadLocal都是相同的
-	//如果执行完一个请求后,关闭了sqlSession,  sqlSession没有归还,还存在在该线程的ThreadLocalMap中
-	//下次如果该请求还是这个线程的,调用的就是这个sqlSession 就会报Executor was closed的错误
-	//但如果该请求是不同的线程处理的,就不会报错,
-	// 因为不同请求的ThreadLocalMap不同,sqlSession存在这个map中只是key是相同的(都是同一个threadLocal)
-	//所以要remove 不然即使sqlSession close()了,也会因为这个threadLocal的引用而得不到回收 ?
+
+	//1.同一请求,不同的请求 的threadLocal是都是相同的 (因为是DBUtil的静态变量)
+	//2.同一请求,不同请求 所用的的线程可能不同 也可能相同
+
+	//如果执行完一个请求后,close()了sqlSession,  sqlSession虽然归还了,
+	//但还存在在该线程的ThreadLocalMap中(threadLocal<sqlSession> 保留着对它的引用)
+
+	//所以导致当请求用到之前用过的同一线程时,得到之前close()过的sqlSession,导致出现Executor was closed的异常
+	//根本原因就是没remove()导致get到的sqlSession是之前用过并close()了的,不是被factory->open得到的,
+	//所以要remove
+	//不然即使sqlSession close()了,归还到了数据库连接池,
+	//也会因为这个threadLocal的引用导致下次直接被调用,
+	//而不是被factory  通过openSqlSession()得到的
+
+	//sqlSession被引用了会归还数据库连接池吗?
+	//会的 只要close()了就会归还连接池,
+	//只是如果不remove-->下次请求 (同一线程时) 用到getSqlSession()得到的是之前
+	//ThreadLocalMap中以threadLocal<sqlSession> 为key 映射的sqlSession
+	//但是该sqlSession已经close()了,就不会被打开 -->导致出现Executor was closed的异常
+
+
+	//而且不remove() 会因为threadLocal对sqlSession的引用导致内存泄漏
 
 
 	//在类加载时优先加载且只会执行一次(一般用于初始化操作的
@@ -100,10 +115,13 @@ public class DBUtil {
 		if (sqlSession!=null){
 //			System.out.println(sqlSession);
 			sqlSession.close();
+			threadLocal.remove();
 		}
-		threadLocal.remove();
 	}
 
+	public static void main(String[] args) {
+		System.out.println(openSqlSession(true));
+	}
 
 
 

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woniuxy.mapper.EmployeeMapper">
+
+    <sql id="baseColumn">
+        id,tno,name,gender,birthday,title,salary,manager_id,dept_id,image
+    </sql>
+    
+    <resultMap id="baseMap" type="com.woniuxy.entity.Employee">
+        <id column="id" jdbcType="id" property="id" javaType="id"/>
+        <result column="tno" property="tno"/>
+        <result column="name" property="name"/>
+        <result column="gender" property="gender"/>
+        <result column="birthday" property="birthday"/>
+        <result column="title" property="title"/>
+        <result column="salary" property="salary"/>
+        <result column="manager_id" property="managerId"/>
+        <result column="dept_id" property="deptId"/>
+        <result column="image" property="imagePath"/>
+    </resultMap>
+
+    <!--    1..List<Map<String,Object>> findAllMap();-->
+    <select id="findAllMap" resultType="map">
+        SELECT
+        <include refid="baseColumn"/>
+        FROM t_emp
+    </select>
+
+    <!--    2.List<Employee> findAll(); //查询所有员工-->
+    <select id="findAll" resultMap="baseMap">
+        SELECT
+        <include refid="baseColumn"/>
+        FROM t_emp
+    </select>
+
+<!--    3.Map<Integer,Employee> findAllEmp();//查询所有员工-->
+    <select id="findAllEmp" resultMap="">
+        SELECT
+        <include refid="baseColumn"/>
+        FROM t_emp
+    </select>
+</mapper>
