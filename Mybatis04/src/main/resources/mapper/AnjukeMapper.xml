@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woniuxy.mapper.AnjukeMapper">
+
+    <sql id="baseColumn">
+        id,zone,train_line,rent_money,room,rent_type,layout,direction
+    </sql>
+    <!--1.	int add(Anjuke anjuke);//添加安居客-->
+    <insert id="add" parameterType="com.woniuxy.entity.Anjuke">
+        INSERT INTO anjuke_rent
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id!=null">
+                id,
+            </if>
+            <if test="zone!=null and zone!=''">
+                zone,
+            </if>
+            <if test="trainLine!=null and trainLine!=''">
+                trainLine,
+            </if>
+            <if test="rentMoney!=null ">
+                rent_money,
+            </if>
+            <if test="room!=null and room!=''">
+                room,
+            </if>
+            <if test="rentType!=null and rentType!=''">
+                rent_type,
+            </if>
+            <if test="layout!=null and layout!=''">
+                layout,
+            </if>
+            <if test="direction!=null and direction!=''">
+                direction,
+            </if>
+        </trim>
+        <trim prefix="VALUE(" suffix=")" suffixOverrides=",">
+            <if test="id!=null">
+                #{id},
+            </if>
+            <if test="zone!=null and zone!=''">
+                #{zone},
+            </if>
+            <if test="trainLine!=null and trainLine!=''">
+                #{trainLine},
+            </if>
+            <if test="rentMoney!=null ">
+                #{rentMoney},
+            </if>
+            <if test="room!=null and room!=''">
+                #{room},
+            </if>
+            <if test="rentType!=null and rentType!=''">
+                #{rentType},
+            </if>
+            <if test="layout!=null and layout!=''">
+                #{layout},
+            </if>
+            <if test="direction!=null and direction!=''">
+                #{direction},
+            </if>
+        </trim>
+    </insert>
+
+    <!--2.    int addList(@Param("anjukes") List<Anjuke> anjukes);//添加集合-->
+    <insert id="addList">
+        INSERT INTO anjuke_rent(zone,train_line,rent_money,room,rent_type,layout,direction)VALUES
+        <foreach collection="anjukes" item="anjuke" separator=",">
+            (#{anjuke.zone},#{anjuke.trainLine},#{anjuke.rentMoney},#{anjuke.room},#{anjuke.rentType},#{anjuke.layout},#{anjuke.direction})
+        </foreach>
+    </insert>
+
+    <!--3.    int deleteByIds(@Param("ids") int...ids);//删除一个或多个-->
+    <delete id="deleteByIds">
+        DELETE FROM anjuke_rent
+        WHERE id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <!--4.    int update(Anjuke anjuke);//更新一个-->
+    <update id="update" parameterType="com.woniuxy.entity.Anjuke">
+        UPDATE anjuke_rent
+        <set>
+            <if test="zone!=null and zone!=''">
+                zone=#{zone},
+            </if>
+            <if test="trainLine!=null and trainLine!=''">
+                train_line=#{trainLine},
+            </if>
+            <if test="rentMoney!=null ">
+                rent_money=#{rentMoney},
+            </if>
+            <if test="room!=null and room!=''">
+                room= #{room},
+            </if>
+            <if test="rentType!=null and rentType!=''">
+                rent_type=#{rentType},
+            </if>
+            <if test="layout!=null and layout!=''">
+                layout= #{layout},
+            </if>
+            <if test="direction!=null and direction!=''">
+                direction=#{direction},
+            </if>
+        </set>
+        WHERE id=#{id}
+    </update>
+
+    <resultMap id="baseMap" type="com.woniuxy.entity.Anjuke">
+        <id column="id" property="id"/>
+        <result column="zone" property="zone"/>
+        <result column="train_line" property="trainLine"/>
+        <result column="rent_money" property="rentMoney"/>
+        <result column="room" property="room"/>
+        <result column="rent_type" property="rentType"/>
+        <result column="layout" property="layout"/>
+        <result column="direction" property="direction"/>
+    </resultMap>
+
+
+    <!--5.    Employee findById(int id);//根据id查一个-->
+    <select id="findById" resultMap="baseMap">
+        SELECT
+        <include refid="baseColumn"/>
+        FROM anjuke_rent
+        WHERE id=#{id}
+    </select>
+
+    <!--6.    List<Anjuke> findAll(); //查所有-->
+    <select id="findAll" resultMap="baseMap">
+        SELECT
+        <include refid="baseColumn"/>
+        FROM anjuke_rent
+    </select>
+
+    <!--7.    List<Map<String,Object>> findAllMap(); //查所有集合-->
+    <select id="findAllMap" resultType="map">
+        SELECT
+        <include refid="baseColumn"/>
+        FROM anjuke_rent
+    </select>
+
+    <!--    8.@MapKey("id")		//将查询到的id列的值作为Map的Key,将resultMap的结果作value-->
+    <!--    Map<Integer, Anjuke> findAllAnjuke();//查询所有-->
+    <select id="findAllAnjuke" resultMap="baseMap">
+        SELECT
+        <include refid="baseColumn"/>
+        FROM anjuke_rent
+    </select>
+
+    <!--9.	List<Anjuke> findLikeName(String keyword);//名字模糊查询-->
+    <select id="findLikeName" resultMap="baseMap">
+        SELECT
+        <include refid="baseColumn"/>
+        FROM anjuke_rent
+        <!--        WHERE zone LIKE CONCAT("%",#{VALUE},"%")-->
+        <!--        WHERE zone LIKE "%${value}%"-->
+        WHERE zone LIKE "%"#{value}"%"
+        <!--        WHERE zone LIKE "%#{value}%" 这个不行 实际是这个`"%'浦东'%"-->
+    </select>
+
+
+    <!--10.    List<Anjuke> findByCondition(Anjuke anjuke);//根据传入的条件查询-->
+    <select id="findByCondition" parameterType="com.woniuxy.entity.Anjuke" resultMap="baseMap">
+        SELECT
+        <include refid="baseColumn"/>
+        FROM anjuke_rent
+        <where>
+            <if test="id!=null">
+                AND id =#{id}
+            </if>
+            <if test="zone!=null and zone!=''">
+                AND zone=#{zone}
+            </if>
+            <if test="trainLine!=null and trainLine!=''">
+                AND train_line=#{trainLine}
+            </if>
+            <if test="rentMoney!=null ">
+                AND rent_money=#{rentMoney}
+            </if>
+            <if test="room!=null and room!=''">
+                AND room= #{room}
+            </if>
+            <if test="rentType!=null and rentType!=''">
+                AND rent_type=#{rentType}
+            </if>
+            <if test="layout!=null and layout!=''">
+                AND layout= #{layout}
+            </if>
+            <if test="direction!=null and direction!=''">
+                AND direction=#{direction}
+            </if>
+        </where>
+    </select>
+
+<!--11.    List<Anjuke> findLimit(@Param("kw") String keyword,@Param("start") int start,@Param("num") int num);//分页模糊-->
+        <select id="findLimit" resultMap="baseMap">
+            SELECT
+            <include refid="baseColumn"/>
+            FROM anjuke_rent
+            WHERE zone LIKE CONCAT("%",#{kw},"%") OR train_line LIKE CONCAT("%",#{kw},"%") OR direction LIKE CONCAT("%",#{kw},"%")
+            LIMIT #{start},#{num}
+
+        </select>
+
+
+</mapper>

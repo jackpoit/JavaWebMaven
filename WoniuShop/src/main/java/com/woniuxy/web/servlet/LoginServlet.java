@@ -20,20 +20,16 @@ public class LoginServlet extends HttpServlet {
 		req.setCharacterEncoding("utf-8");
 		String username=req.getParameter("l_username");
 		String password=req.getParameter("l_pwd");
-		User user=usi.findByName(username);
 
+		User user = usi.loginUser(username, password);
 		String resStr="";
 		if (user==null){
-			resStr="没有此用户";
+			resStr="登录失败";
 		}else {
-			if (!password.equals(user.getPassword())){
-				resStr="密码错误";
-			}else {
-				resStr="登录成功";
-				req.setAttribute("name",user.getUsername());
-				System.out.println(user);
-			}
+			resStr="登录成功";
+			req.setAttribute("name",user.getUsername());
 		}
+
 		req.setAttribute("loginStr",resStr);
 		req.getRequestDispatcher("/index.jsp").forward(req,resp);
 	}

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woniuxy.mapper.EmployeeMapper">
+
+
+    <resultMap id="oneToOneMap" type="com.woniuxy.entity.Employee">
+        <id column="id" property="id"/>
+        <result column="tno" property="tno"/>
+        <result column="name" property="name"/>
+        <result column="gender" property="gender"/>
+        <result column="birthday" property="birthday"/>
+        <result column="title" property="title"/>
+        <result column="salary" property="salary"/>
+        <result column="manager_id" property="managerId"/>
+        <result column="image" property="imagePath"/>
+
+        <!--一对一关联映射的标准写法-->
+        <association property="dept" javaType="com.woniuxy.entity.Department">
+            <id column="did" property="id"/>
+            <result column="dname" property="dName"/>
+            <result column="location" property="location"/>
+            <result column="area" property="area"/>
+        </association>
+
+        <!--   <result column="did" property="dept.id"/>
+         <result column="dname" property="dept.dName"/>
+         <result column="location" property="dept.location"/>
+         <result column="area" property="dept.area"/> -->
+
+    </resultMap>
+
+
+    <!--    1.Employee findById(int id);//一对一关联查询  2表查询-->
+    <select id="findById" resultMap="oneToOneMap">
+        SELECT
+        e.id,e.tno,e.name,e.gender,e.birthday,e.title,e.salary,e.manager_id,e.image,
+        d.id did,d.dname,d.location,d.area
+        FROM t_emp e LEFT JOIN t_dept d ON e.dept_id=d.id
+        WHERE e.id=#{value}
+    </select>
+
+
+
+<!--    分布查询思想 将复杂的多表查询简化成多个单表查询-->
+    <resultMap id="oneToOneStepMap" type="com.woniuxy.entity.Employee">
+        <id column="id" property="id"/>
+        <result column="tno" property="tno"/>
+        <result column="name" property="name"/>
+        <result column="gender" property="gender"/>
+        <result column="birthday" property="birthday"/>
+        <result column="title" property="title"/>
+        <result column="salary" property="salary"/>
+        <result column="manager_id" property="managerId"/>
+        <result column="image" property="imagePath"/>
+
+        <!--一对一关联映射的高级分布查询-->
+        <association property="dept" javaType="com.woniuxy.entity.Department"
+        select="com.woniuxy.mapper.DepartmentMapper.findById" column="dept_id" fetchType="lazy">
+        </association>
+    </resultMap>
+
+
+<!--    2.Employee findStepById(int id); //高效的分布懒加载查询-->
+        <select id="findStepById" resultMap="oneToOneStepMap">
+            SELECT
+            id,tno,name,gender,birthday,title,salary,manager_id,dept_id,image
+            FROM t_emp
+            WHERE id=#{value}
+        </select>
+
+
+
+    <resultMap id="baseMap" type="com.woniuxy.entity.Employee">
+        <id column="id" property="id"/>
+        <result column="tno" property="tno"/>
+        <result column="name" property="name"/>
+        <result column="gender" property="gender"/>
+        <result column="birthday" property="birthday"/>
+        <result column="title" property="title"/>
+        <result column="salary" property="salary"/>
+        <result column="manager_id" property="managerId"/>
+        <result column="image" property="imagePath"/>
+    </resultMap>
+<!--    3.List<Employee> findByDeptId(int id); //根据部门编号查找员工-->
+    <select id="findByDeptId" resultMap="baseMap">
+        SELECT
+        id,tno,name,gender,birthday,title,salary,manager_id,image
+        FROM t_emp
+        WHERE dept_id=#{value}
+    </select>
+
+</mapper>

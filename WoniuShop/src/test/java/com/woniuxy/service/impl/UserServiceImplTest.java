@@ -9,6 +9,17 @@ import org.junit.Test;
 public class UserServiceImplTest {
 
 	@Test
+	public void  findNameAndPassword(){
+
+		UserMapper mapper = DBUtil.getMapper(UserMapper.class);
+		User user = mapper.findNameAndPassword("'jack' or '1'= '1'", "asgfgas");
+
+		System.out.println(user);
+
+
+	}
+
+	@Test
 	public void registerUser() {
 		UserMapper mapper = DBUtil.getMapper(UserMapper.class);
 		User user = new User();

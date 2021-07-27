@@ -49,5 +49,7 @@ public interface UserMapper {
 	int deleteByIds(@Param("ids") Integer...ids);//根据多个id来删除
 
 	int update(User user);//更新用户对象
+
+	User findNameAndPassword(@Param("username") String username,@Param("pwd") String password);
 }
 

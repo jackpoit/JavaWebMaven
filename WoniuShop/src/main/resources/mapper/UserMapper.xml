@@ -5,7 +5,7 @@
 <mapper namespace="com.woniuxy.mapper.UserMapper">
 
     <sql id="baseColumn">
-        id,username,password,phone,email,image,level
+        id,username,phone,email,image,level
     </sql>
     <resultMap id="baseMap" type="com.woniuxy.entity.User">
         <id column="id" property="id"/>
@@ -17,29 +17,29 @@
         <result column="level" property="userLevel"/>
     </resultMap>
 
-<!--    1.User findByName(String name);-->
+    <!--    1.User findByName(String name);-->
     <select id="findByName" resultMap="baseMap">
         SELECT
         <include refid="baseColumn"/>
         FROM t_user
-        WHERE username=#{value }
+        WHERE username=#{value}
     </select>
 
-<!--    2.int add(User user);-->
+    <!--    2.int add(User user);-->
     <insert id="add" parameterType="com.woniuxy.entity.User" useGeneratedKeys="true" keyColumn="id"
             keyProperty="id">
         INSERT INTO t_user(username, password, phone, email, image, level)
-        VALUE(#{username},#{password},#{phone},#{email},#{imagePath},#{userLevel})
+            VALUE (#{username},#{password},#{phone},#{email},#{imagePath},#{userLevel})
     </insert>
 
-<!--    3.List<User> findAll();-->
+    <!--    3.List<User> findAll();-->
     <select id="findAll" resultMap="baseMap">
-    SELECT
-    <include refid="baseColumn"/>
-    FROM t_user
+        SELECT
+        <include refid="baseColumn"/>
+        FROM t_user
     </select>
 
-<!--    4.List<User> findLimitByKeyword(@Param("kw") String keyword, @Param("start") int start, @Param("num") int num);-->
+    <!--    4.List<User> findLimitByKeyword(@Param("kw") String keyword, @Param("start") int start, @Param("num") int num);-->
     <select id="findLimitByKeyword" resultMap="baseMap">
         SELECT
         <include refid="baseColumn"/>
@@ -48,13 +48,16 @@
         LIMIT #{start},#{num}
     </select>
 
-<!--    5.long count(String keyword);-->
+    <!--    5.long count(String keyword);-->
     <select id="count" resultType="long">
-        SELECT COUNT(*) FROM t_user
-        WHERE username LIKE CONCAT('%',#{keyword},'%') OR id LIKE CONCAT('%',#{keyword},'%') OR phone LIKE CONCAT('%',#{keyword},'%')
+        SELECT COUNT(*)
+        FROM t_user
+        WHERE username LIKE CONCAT('%', #{keyword}, '%')
+           OR id LIKE CONCAT('%', #{keyword}, '%')
+           OR phone LIKE CONCAT('%', #{keyword}, '%')
     </select>
 
-<!--    6.int deleteByIds(@Param("ids")int...ids);//根据多个id来删除-->
+    <!--    6.int deleteByIds(@Param("ids")int...ids);//根据多个id来删除-->
     <delete id="deleteByIds">
         DELETE FROM t_user WHERE id in
         <foreach collection="ids" item="id" open="(" close=")" separator=",">
@@ -91,13 +94,13 @@
         WHERE id = #{id}
     </update>
 
-
-
-
-
-
-
-
+    <!--    8.string findNameAndPassword(@Param("username") String username,@Param("pwd") String password);-->
+    <select id="findNameAndPassword" resultMap="baseMap">
+        SELECT
+        <include refid="baseColumn"/>
+        FROM t_user
+        WHERE username=#{username} AND password=#{pwd}
+    </select>
 
 
 </mapper>

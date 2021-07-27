@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woniuxy.mapper.DepartmentMapper">
+
+
+    <resultMap id="baseMap" type="com.woniuxy.entity.Department">
+        <id column="id" property="id"/>
+        <result column="dname" property="dName"/>
+        <result column="location" property="location"/>
+        <result column="area" property="area"/>
+    </resultMap>
+
+    <!--    1.Department findById(int id);//根据id查询对应的部门-->
+    <select id="findById" resultMap="baseMap">
+        SELECT
+        id,dname,location,area
+        FROM t_dept
+        WHERE id=#{value}
+    </select>
+
+
+    <resultMap id="oneToManyMap" type="com.woniuxy.entity.Department">
+        <id column="did" property="id"/>
+        <result column="dname" property="dName"/>
+        <result column="location" property="location"/>
+        <result column="area" property="area"/>
+        <!--一对多标准的封装流程-->
+        <collection property="emps" ofType="com.woniuxy.entity.Employee">
+            <id column="id" property="id"/>
+            <result column="tno" property="tno"/>
+            <result column="name" property="name"/>
+            <result column="gender" property="gender"/>
+            <result column="birthday" property="birthday"/>
+            <result column="title" property="title"/>
+            <result column="salary" property="salary"/>
+            <result column="manager_id" property="managerId"/>
+            <result column="image" property="imagePath"/>
+        </collection>
+    </resultMap>
+
+    <!--    2.Department findManyById(int id);//根据id查询部门(一对多)-->
+    <select id="findManyById" resultMap="oneToManyMap">
+        SELECT
+        d.id did,d.dname,d.location,d.area,
+        e.id,e.tno,e.name,e.gender,e.birthday,e.title,e.salary,e.manager_id,e.image
+        FROM t_dept d LEFT JOIN t_emp e ON e.dept_id=d.id
+        WHERE d.id=#{value}
+    </select>
+
+    <resultMap id="oneToManyStepMap" type="com.woniuxy.entity.Department">
+        <id column="id" property="id"/>
+        <result column="dname" property="dName"/>
+        <result column="location" property="location"/>
+        <result column="area" property="area"/>
+        <!--一对多标准的封装流程-->
+        <collection property="emps" ofType="com.woniuxy.entity.Employee"
+        select="com.woniuxy.mapper.EmployeeMapper.findByDeptId" column="id">
+        </collection>
+    </resultMap>
+    <!--    3.Department findStepById(int id);//根据id查询部门(分布懒加载关联映射查询)-->
+    <select id="findStepById" resultMap="oneToManyStepMap">
+        SELECT
+        id,dname,location,area
+        FROM t_dept
+        WHERE id=#{value}
+    </select>
+
+</mapper>

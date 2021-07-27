@@ -14,16 +14,27 @@ import java.util.List;
  * @Description:
  */
 public class UserServiceImpl implements UserService {
+
+
 	@Override
-	public User findByName(String userName) {
-		if (userName == null) {
-			return null;
-		}
+	public User loginUser(String userName, String password) {
 		UserMapper mapper = DBUtil.getMapper(UserMapper.class);
-		User user = mapper.findByName(userName);
+		User user = mapper.findNameAndPassword(userName, password);
 		DBUtil.close();
+
 		return user;
 	}
+
+//	@Override
+//	public User findByName(String userName) {
+//		if (userName == null) {
+//			return null;
+//		}
+//		UserMapper mapper = DBUtil.getMapper(UserMapper.class);
+//		User user = mapper.findByName(userName);
+//		DBUtil.close();
+//		return user;
+//	}
 
 	@Override
 	public boolean registerUser(User user) {

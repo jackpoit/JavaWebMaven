@@ -9,8 +9,9 @@ import com.woniuxy.entity.User;
  * @Description:
  */
 public interface UserService {
+	User loginUser(String userName,String password);
 
-	User findByName(String userName);
+//	User findByName(String userName);
 
 	boolean registerUser(User user);
 

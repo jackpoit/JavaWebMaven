@@ -5,11 +5,15 @@
 <mapper namespace="com.woniuxy.mapper.EmployeeMapper">
 
     <sql id="baseColumn">
-        id,tno,name,gender,birthday,title,salary,manager_id,dept_id,image
+        id
+        ,tno,name,gender,birthday,title,salary,manager_id,dept_id,image
     </sql>
-    
+
+
     <resultMap id="baseMap" type="com.woniuxy.entity.Employee">
-        <id column="id" jdbcType="id" property="id" javaType="id"/>
+        <!--id column="id" jdbcType="id" property="id" javaType="id"/>-->
+
+        <id column="id" property="id"/>
         <result column="tno" property="tno"/>
         <result column="name" property="name"/>
         <result column="gender" property="gender"/>
@@ -35,10 +39,161 @@
         FROM t_emp
     </select>
 
-<!--    3.Map<Integer,Employee> findAllEmp();//查询所有员工-->
-    <select id="findAllEmp" resultMap="">
+    <!--    3.Map<Integer,Employee> findAllEmp();//查询所有员工-->
+    <select id="findAllEmp" resultMap="baseMap">
         SELECT
         <include refid="baseColumn"/>
         FROM t_emp
     </select>
+
+
+    <!--    4.List<HashMap<String, Object>> findEmpAndDept(); //查询所有的员工及对应的部门信息-->
+    <!--这里是resultType-->
+    <select id="findEmpAndDept" resultType="hashmap">
+        SELECT e.id,
+               e.tno,
+               e.name,
+               e.gender,
+               e.birthday,
+               e.title,
+               e.salary,
+               e.manager_id,
+               e.dept_id,
+               e.image,
+               d.dname,
+               d.location,
+               d.area
+        FROM t_emp e
+                 JOIN t_dept d ON e.dept_id = d.id
+    </select>
+
+    <!--    5.List<Employee> findLikeName(String keyword);-->
+    <select id="findLikeName" resultMap="baseMap">
+        SELECT
+        id,dept_id,manager_id
+        FROM t_emp
+        <!--WHERE name LIKE "%"#{value}"%"-->
+        WHERE name LIKE "%#{value}%"
+        <!-- WHERE name LIKE CONCAT("%",#{value},"%")-->
+    </select>
+
+    <!--    6.List<Employee> findOrder(String rule);//test-->
+    <select id="findOrder" resultMap="baseMap">
+        SELECT id,
+               dept_id,
+               manager_id
+        FROM t_emp
+        ORDER BY #{value}
+    </select>
+
+    <!--    7.List<Employee> findByCondition(Employee employee);-->
+    <select id="findByCondition" parameterType="com.woniuxy.entity.Employee" resultMap="baseMap">
+        SELECT
+        <include refid="baseColumn"/>
+        FROM t_emp
+        <trim prefix="WHERE" prefixOverrides="and">
+            <!--<where>  会去掉多余的and或or -->
+            <if test="id!=null ">
+               AND id=#{id}
+            </if>
+            <if test="tno!=null and tno !=''">
+                AND tno=#{tno}
+            </if>
+            <if test="name!=null and name !=''">
+                AND name=#{name}
+            </if>
+            <if test="gender!=null and gender !=''">
+                AND gender=#{gender}
+            </if>
+            <if test="birthday!=null">
+                AND birthday=#{birthday}
+            </if>
+            <if test="title!=null and title !=''">
+                AND title=#{title}
+            </if>
+            <if test="salary!=null">
+                AND salary=#{salary}
+            </if>
+            <if test="managerId!=null">
+                AND manager_id=#{managerId}
+            </if>
+            <if test="deptId!=null">
+                AND dept_id=#{deptId}
+            </if>
+            <if test="imagePath!=null and imagePath !=''">
+                AND image=#{imagePath}
+            </if>
+            <!--</where>-->
+        </trim>
+    </select>
+
+<!--    8.int insert(Employee emp);//动态插入-->
+        <insert id="insert" parameterType="com.woniuxy.entity.Employee" >
+            INSERT INTO t_emp
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id!=null ">
+                    id,
+                </if>
+                <if test="tno!=null and tno !=''">
+                    tno,
+                </if>
+                <if test="name!=null and name !=''">
+                    name,
+                </if>
+                <if test="gender!=null and gender !=''">
+                   gender,
+                </if>
+                <if test="birthday!=null">
+                   birthday,
+                </if>
+                <if test="title!=null and title !=''">
+                     title,
+                </if>
+                <if test="salary!=null">
+                     salary,
+                </if>
+                <if test="managerId!=null">
+                    manager_id,
+                </if>
+                <if test="deptId!=null">
+                     dept_id,
+                </if>
+                <if test="imagePath!=null and imagePath !=''">
+                     image,
+                </if>
+            </trim>
+            <trim prefix="VALUE(" suffix=")" suffixOverrides=",">
+                <if test="id!=null ">
+                    #{id},
+                </if>
+                <if test="tno!=null and tno !=''">
+                    #{tno},
+                </if>
+                <if test="name!=null and name !=''">
+                  #{name},
+                </if>
+                <if test="gender!=null and gender !=''">
+                   #{gender},
+                </if>
+                <if test="birthday!=null">
+                    #{birthday},
+                </if>
+                <if test="title!=null and title !=''">
+                    #{title},
+                </if>
+                <if test="salary!=null">
+                    #{salary},
+                </if>
+                <if test="managerId!=null">
+                   #{managerId},
+                </if>
+                <if test="deptId!=null">
+                   #{deptId},
+                </if>
+                <if test="imagePath!=null and imagePath !=''">
+                   #{imagePath},
+                </if>
+            </trim>
+        </insert>
+
 </mapper>
