@@ -8,12 +8,10 @@
     <groupId>org.example</groupId>
     <version>1.0-SNAPSHOT</version>
   </parent>
-
-
-  <artifactId>MyBatis01</artifactId>
+  <artifactId>Mybatis05</artifactId>
   <packaging>war</packaging>
 
-  <name>MyBatis01 Maven Webapp</name>
+  <name>Mybatis05 Maven Webapp</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 

@@ -93,6 +93,49 @@
         WHERE dept_id=#{value}
     </select>
 
+<!--    4.List<Employee> findAll();-->
+    <select id="findAll" resultMap="baseMap">
+        SELECT
+            id,tno,name,gender,birthday,title,salary,manager_id,image
+        FROM t_emp
+    </select>
 
+    <!--    5.List<Employee> findByCondition(Employee employee);-->
+    <select id="findByCondition" parameterType="com.woniuxy.entity.Employee" resultMap="baseMap">
+        SELECT
+        id,tno,name,gender,birthday,title,salary,manager_id,image
+        FROM t_emp
+        <trim prefix="WHERE" prefixOverrides="and">
+            <!--<where>  会去掉多余的and或or -->
+            <if test="id!=null ">
+                AND id=#{id}
+            </if>
+            <if test="tno!=null and tno !=''">
+                AND tno=#{tno}
+            </if>
+            <if test="name!=null and name !=''">
+                AND name LIKE CONCAT("%",#{name},"%")
+            </if>
+            <if test="gender!=null and gender !=''">
+                AND gender=#{gender}
+            </if>
+            <if test="birthday!=null">
+                AND birthday=#{birthday}
+            </if>
+            <if test="title!=null and title !=''">
+                AND title=#{title}
+            </if>
+            <if test="salary!=null">
+                AND salary=#{salary}
+            </if>
+            <if test="managerId!=null">
+                AND manager_id=#{managerId}
+            </if>
 
+            <if test="imagePath!=null and imagePath !=''">
+                AND image=#{imagePath}
+            </if>
+            <!--</where>-->
+        </trim>
+    </select>
 </mapper>

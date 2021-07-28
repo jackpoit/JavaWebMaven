@@ -2,6 +2,7 @@ package com.woniuxy.mapper;
 
 import com.woniuxy.entity.Employee;
 import com.woniuxy.utils.DBUtil;
+import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -21,6 +22,7 @@ public class EmployeeMapperTest {
 		emp.setTitle("hazuku");
 		int row = mapper.insert(emp);
 		System.out.println(row>0?"success":"failed");
+		SqlSession sqlSession = DBUtil.openSqlSession(true);
 
 	}
 

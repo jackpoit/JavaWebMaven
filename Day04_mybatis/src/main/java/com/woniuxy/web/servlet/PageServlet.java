@@ -1,5 +1,6 @@
 package com.woniuxy.web.servlet;
 
+import com.github.pagehelper.PageInfo;
 import com.woniuxy.entity.Employee;
 import com.woniuxy.entity.PageModel;
 import com.woniuxy.service.impl.EmployeeServiceImpl;
@@ -34,9 +35,10 @@ public class PageServlet extends HttpServlet {
             keyword = "";
         }
         //3. 调用业务层api查询分页模型
-        PageModel<Employee> model = esi.findOnePage(currentPage, keyword);
+        PageInfo<Employee> info = esi.showOnePage(currentPage, keyword);
         //4. 将分页模型存放到request域中
-        req.setAttribute("pageModel", model);
+        req.setAttribute("info",info);
+        req.setAttribute("kw",keyword);
         //5. 转发到page.jsp
         req.getRequestDispatcher("/page.jsp").forward(req,resp);
     }

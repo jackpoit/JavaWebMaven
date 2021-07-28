@@ -34,13 +34,13 @@
 
       <%--结果展示区--%>
       <div class="container" style="margin-top: 30px">
-          <c:if test="${empty pageModel.list}">
+          <c:if test="${empty info.list}">
                 <h2 class="text-center" style="color: #b0b0b0">还未帮您查询到任何数据!</h2>
           </c:if>
-          <c:if test="${!empty pageModel.list}">
+          <c:if test="${!empty info.list}">
               <%--商品展示区--%>
-            <div class="col-md-12">
-              <table class="table-bordered table-hover text-center" style="font-size: 18px;line-height:50px;width: 100%">
+            <div class="col-md-12" style="min-height: 310px">
+              <table class="table-bordered table-hover text-center" style="font-size: 18px;line-height:50px;width: 100%;">
                 <tr style="background:#999;color: #fffa81;font-weight: bold">
                   <td>编号</td>
                   <td>工号</td>
@@ -54,7 +54,7 @@
                   <td>部门编号</td>
                   <td colspan="3">操作</td>
                 </tr>
-                  <c:forEach var="emp" items="${pageModel.list}">
+                  <c:forEach var="emp" items="${info.list}">
                       <tr>
                           <td>${emp.id}</td>
                           <td>${emp.tno}</td>
@@ -86,32 +86,32 @@
               </table>
             </div>
               <%--分页导航--%>
-              <c:if test="${pageModel.totalPage > 1}">
+              <c:if test="${info.pages>1}">
                   <div class="col-md-12 text-center">
                       <ul class="pagination">
                               <%--处理上一页逻辑--%>
-                          <li><a href="page?currentPage=${pageModel.prev}&keyword=${pageModel.keyword}">上一页</a></li>
+                          <li><a href="page?currentPage=${info.prePage}&keyword=${kw}">上一页</a></li>
 
                               <%--处理中间页码的逻辑--%>
-                          <c:forEach var="i" begin="1" end="${pageModel.totalPage}">
-                              <c:if test="${pageModel.currentPage == i}">
+                          <c:forEach var="i" begin="1" end="${info.pages}">
+                              <c:if test="${info.pageNum == i}">
                                   <li class="active"><a href="javascript:;">${i}</a></li>
                               </c:if>
-                              <c:if test="${pageModel.currentPage != i}">
-                                  <li><a href="page?currentPage=${i}&keyword=${pageModel.keyword}">${i}</a></li>
+                              <c:if test="${info.pageNum != i}">
+                                  <li><a href="page?currentPage=${i}&keyword=${kw}">${i}</a></li>
                               </c:if>
                           </c:forEach>
 
                               <%--处理下一页的逻辑--%>
-                          <li><a href="page?currentPage=${pageModel.next}&keyword=${pageModel.keyword}">下一页</a></li>
+                          <li><a href="page?currentPage=${info.nextPage}&keyword=${kw}">下一页</a></li>
                       </ul>
                   </div>
               </c:if>
           </c:if>
            <%--跳转功能--%>
           <div class="col-md-8 col-md-offset-2 text-center" style="font-size: 18px; color: #b0b0b0">
-              共<span style="color: #ff6700">${pageModel.total}</span>条数据，
-              目前在第<span style="color: #ff6700">${pageModel.currentPage}</span>页
+              共<span style="color: #ff6700">${info.total}</span>条数据，
+              目前在第<span style="color: #ff6700">${info.pageNum}</span>页
               <span style="margin-left: 40px">前往</span>
               <input type="text" class="text-center" id="pageNum" style="width: 60px;">
               <button class="btn btn-warning" onclick="goto()">跳转</button>
@@ -313,7 +313,7 @@
       <%--跳转的脚本--%>
       <script>
         function goto(){
-            let totalPage = ${pageModel.totalPage}; // 最后一页的页码
+            let totalPage = ${info.pages}; // 最后一页的页码
             let pageNum = $('#pageNum').val(); // 获取跳转的页码
             let numPattern = /[1-9]\d*/;
             if(!numPattern.test(pageNum)){
@@ -327,7 +327,7 @@
                 return;
             }
             //发送请求并查询结果
-            location.href = "page?currentPage="+pageNum+"&keyword=${pageModel.keyword}";
+            location.href = "page?currentPage="+pageNum+"&keyword=${kw}";
         }
       </script>
   </body>

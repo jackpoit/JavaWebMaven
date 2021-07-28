@@ -16,5 +16,11 @@ public interface EmployeeMapper {
 	List<Employee> findByDeptId(int id); //根据部门编号查找员工
 
 	List<Employee> findAll();
+	/**
+	 * 组合查询
+	 * @param condition
+	 * @return
+	 */
+	List<Employee> findByCondition(Employee emp);
 
 }

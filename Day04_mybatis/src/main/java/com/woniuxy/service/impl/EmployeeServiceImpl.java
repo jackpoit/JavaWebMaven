@@ -1,5 +1,7 @@
 package com.woniuxy.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.woniuxy.entity.Employee;
 import com.woniuxy.entity.PageModel;
 import com.woniuxy.mapper.EmployeeMapper;
@@ -107,5 +109,20 @@ public class EmployeeServiceImpl implements EmployeeService {
 		int row = mapper.update(emp);
 		DBUtil.close();
 		return row > 0;
+	}
+
+	@Override
+	public PageInfo<Employee> showOnePage(int currentPage, String keyword) {
+		if (currentPage<0||keyword==null){
+			return null;
+		}
+
+		EmployeeMapper mapper = DBUtil.getMapper(EmployeeMapper.class);
+		PageHelper.startPage(currentPage,5);
+		List<Employee> list = mapper.findByKeyword(keyword);
+		PageInfo<Employee> info = new PageInfo<>(list);
+		DBUtil.close();
+		return info;
+
 	}
 }

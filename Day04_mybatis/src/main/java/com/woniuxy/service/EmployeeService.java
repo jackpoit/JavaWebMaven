@@ -1,5 +1,6 @@
 package com.woniuxy.service;
 
+import com.github.pagehelper.PageInfo;
 import com.woniuxy.entity.Employee;
 import com.woniuxy.entity.PageModel;
 
@@ -52,7 +53,7 @@ public interface EmployeeService {
      * @param employee
      * @return
      */
-    public boolean addEmployee(Employee employee);
+     boolean addEmployee(Employee employee);
 
     /**
      * 更新员工的头像
@@ -60,5 +61,7 @@ public interface EmployeeService {
      * @param imgPath
      * @return
      */
-    public boolean updateImg(int id,String imgPath);
+     boolean updateImg(int id,String imgPath);
+
+    PageInfo<Employee> showOnePage(int currentPage, String keyword);
 }

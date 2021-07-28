@@ -19,6 +19,7 @@
         <module>Day04_mybatis</module>
         <module>Mybatis03</module>
         <module>Mybatis04</module>
+        <module>Mybatis05</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -59,6 +60,11 @@
         <log4j-api-version>2.13.0</log4j-api-version>
 
         <ognl-version>3.2.12</ognl-version>
+
+        <ehcache-core-version>2.6.8</ehcache-core-version>
+        <mybatis-ehcache-version>1.0.3</mybatis-ehcache-version>
+
+        <pagehelper-version>5.2.0</pagehelper-version>
 
     </properties>
 
@@ -216,6 +222,24 @@
                 <version>${ognl-version}</version>
             </dependency>
 
+
+            <dependency>
+                <groupId>net.sf.ehcache</groupId>
+                <artifactId>ehcache-core</artifactId>
+                <version>${ehcache-core-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mybatis.caches</groupId>
+                <artifactId>mybatis-ehcache</artifactId>
+                <version>${mybatis-ehcache-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper</artifactId>
+                <version>${pagehelper-version}</version>
+            </dependency>
         </dependencies>
 <!--    </dependencyManagement>-->
 

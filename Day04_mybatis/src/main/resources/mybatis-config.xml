@@ -13,6 +13,15 @@
 <!--    <settings>-->
 <!--        <setting name="mapUnderscoreToCamelCase" value="true"/>-->
 <!--    </settings>-->
+
+    <plugins>
+        <!-- com.github.pagehelper为PageHelper类所在包名 -->
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+            <!-- 使用下面的方式配置参数，后面会有所有的参数介绍 -->
+            <property name="pageSizeZero" value="true"/>
+            <property name="reasonable" value="true"/>
+        </plugin>
+    </plugins>
     <!--数据库环境-->
     <environments default="development">
         <environment id="development">
