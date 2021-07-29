@@ -18,6 +18,7 @@ import java.io.IOException;
 @MultipartConfig
 @WebServlet("/upload")
 public class UploadServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
     EmployeeServiceImpl esi = new EmployeeServiceImpl();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
