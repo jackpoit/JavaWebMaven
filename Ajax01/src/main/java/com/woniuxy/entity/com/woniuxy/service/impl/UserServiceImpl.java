@@ -1,5 +1,7 @@
 package com.woniuxy.entity.com.woniuxy.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.woniuxy.entity.User;
 import com.woniuxy.entity.com.woniuxy.service.UserService;
 import com.woniuxy.mapper.UserMapper;
@@ -34,6 +36,22 @@ public class UserServiceImpl implements UserService {
 		List<User> list = mapper.findCondition(null);
 		DBUtil.close();
 		return list.isEmpty()?null:list;
+	}
+
+	@Override
+	public PageInfo<User> findOnePage(int currentPage) {
+
+		UserMapper mapper = DBUtil.getMapper(UserMapper.class);
+
+		PageHelper.startPage(currentPage,5);
+
+		List<User> list = mapper.findCondition(null);
+
+		DBUtil.close();
+
+		return new PageInfo<>(list);
+
+
 	}
 
 

@@ -1,5 +1,6 @@
 package com.woniuxy.entity.com.woniuxy.service;
 
+import com.github.pagehelper.PageInfo;
 import com.woniuxy.entity.User;
 
 import java.util.List;
@@ -20,5 +21,7 @@ public interface UserService {
 	boolean checkUserByName(String name);
 
 	List<User> showAll();
+
+	PageInfo<User> findOnePage(int currentPage);
 
 }

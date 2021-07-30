@@ -1,6 +1,8 @@
 package com.woniuxy.web.servlet;
 
 import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.util.StringUtil;
 import com.woniuxy.entity.User;
 import com.woniuxy.entity.com.woniuxy.service.impl.UserServiceImpl;
 import com.woniuxy.util.BaseServlet;
@@ -47,11 +49,48 @@ public class UserServlet extends BaseServlet {
 	public void showAll(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		//1.调用service
 		List<User> list = usi.showAll();
-		//2.需要将list转换成json的字符串(fastjson)
+		//2.需要将list转换成json格式的字符串(fastjson)
 		String jsonStr = JSON.toJSONString(list);
 
 		//2.返回ajax请求的响应
 		resp.getWriter().write(jsonStr);
 
 	}
+
+	/**
+	 * 用户分页查询 user?m=page&currentPage=1&keyword=xxx
+	 * @param req
+	 * @param resp
+	 * @throws Exception
+	 */
+	public void page(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+
+		//1.
+		String cp = req.getParameter("currentPage");
+
+		int currentPage=1;  //无参数查首页
+		if (!StringUtil.isEmpty(cp)){
+			currentPage=Integer.parseInt(cp);
+		}
+
+		//2.
+		PageInfo<User> info = usi.findOnePage(currentPage);
+		String jsonStr = JSON.toJSONString(info);
+		resp.getWriter().write(jsonStr);
+
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
