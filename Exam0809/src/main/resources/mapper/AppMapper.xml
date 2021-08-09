@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.woniuxy.mapper.AppMapper">
+
+    <!--编写标准的resultMap-->
+    <resultMap id="baseMap" type="com.woniuxy.entity.App">
+        <id column="id" property="id"/>
+        <result column="app_name" property="appName"/>
+        <result column="app_size" property="appSize"/>
+        <result column="app_type" property="appType"/>
+        <result column="app_platform" property="appPlatform"/>
+        <result column="app_count" property="appCount"/>
+        <result column="app_img" property="appImg"/>
+    </resultMap>
+
+    <!--编写一个标准的列-->
+    <sql id="baseCol">
+        id
+        ,app_name,app_size,app_type,app_platform,app_count,app_img
+    </sql>
+
+
+    <!--    1.List<App> findByCondition(App app);-->
+    <select id="findByCondition" parameterType="com.woniuxy.entity.App" resultMap="baseMap">
+        SELECT
+        <include refid="baseCol"/>
+        FROM app
+        <where>
+            <if test="id != null">
+                AND id=#{id}
+            </if>
+            <if test="appName != null and appName != ''">
+                AND app_name LIKE CONCAT("%",#{appName},"%")
+            </if>
+            <if test="appType != null and appType != ''">
+                AND app_type= #{appType}
+            </if>
+            <if test="appPlatform != null and appPlatform != ''">
+                AND app_platform= #{appPlatform}
+            </if>
+        </where>
+    </select>
+
+    <!--    2.-->
+    <delete id="deleteByIds">
+        DELETE FROM app WHERE id in
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            <if test="id!=null ">
+                #{id}
+            </if>
+        </foreach>
+    </delete>
+
+    <!--    3.int add(App app);-->
+    <insert id="add" parameterType="com.woniuxy.entity.App">
+        INSERT INTO app
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="appName != null and appName != ''">
+                app_name,
+            </if>
+            <if test="appSize != null">
+                app_size,
+            </if>
+            <if test="appType != null and appType != ''">
+                app_type,
+            </if>
+            <if test="appPlatform != null and appPlatform != ''">
+                app_platform,
+            </if>
+            <if test="appCount != null ">
+                app_count,
+            </if>
+            <if test="appImg != null and appImg != ''">
+                app_img,
+            </if>
+        </trim>
+        VALUE
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="appName != null and appName != ''">
+                #{appName},
+            </if>
+            <if test="appSize != null">
+                #{appSize},
+            </if>
+            <if test="appType != null and appType != ''">
+                #{appType},
+            </if>
+            <if test="appPlatform != null and appPlatform != ''">
+                #{appPlatform},
+            </if>
+            <if test="appCount != null ">
+                #{appCount},
+            </if>
+            <if test="appImg != null and appImg != ''">
+                #{appImg},
+            </if>
+        </trim>
+    </insert>
+
+    <!--    4.int update(App app);-->
+    <update id="update" parameterType="com.woniuxy.entity.App">
+        UPDATE app
+        <set>
+            <if test="appName != null and appName != ''">
+                app_name=#{appName},
+            </if>
+            <if test="appSize != null">
+                app_size=#{appSize},
+            </if>
+            <if test="appType != null and appType != ''">
+                app_type=#{appType},
+            </if>
+            <if test="appPlatform != null and appPlatform != ''">
+                app_platform=#{appPlatform},
+            </if>
+            <if test="appCount != null ">
+                app_count=#{appCount},
+            </if>
+            <if test="appImg != null and appImg != ''">
+                app_img=#{appImg},
+            </if>
+        </set>
+        WHERE id=#{id}
+    </update>
+
+</mapper>

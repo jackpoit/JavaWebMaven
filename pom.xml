@@ -21,6 +21,7 @@
         <module>Mybatis04</module>
         <module>Mybatis05</module>
         <module>Ajax01</module>
+        <module>Exam0809</module>
     </modules>
     <packaging>pom</packaging>
 
