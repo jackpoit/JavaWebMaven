@@ -22,7 +22,10 @@
         <module>Mybatis05</module>
         <module>Ajax01</module>
         <module>Exam0809</module>
+        <module>Vue02</module>
         <module>Vue01</module>
+        <module>DBUtil</module>
+
     </modules>
     <packaging>pom</packaging>
 
@@ -70,6 +73,8 @@
         <pagehelper-version>5.2.0</pagehelper-version>
 
         <fastjson-version>1.2.75</fastjson-version>
+        <md5-version>1.15</md5-version>
+
     </properties>
 
 
@@ -77,15 +82,20 @@
     <dependencies>
 
 
-        <!--         https://mvnrepository.com/artifact/junit/junit-->
+        <!--MD5-->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>${md5-version}</version>
+        </dependency>
+
+        <!-- junit -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${junit-version}</version>
-            <scope>compile</scope>
+            <scope>test</scope>
         </dependency>
-        <!--        单元测试scope改成complie-->
-
 
         <!-- druid -->
         <dependency>
@@ -218,7 +228,6 @@
             <artifactId>ognl</artifactId>
             <version>${ognl-version}</version>
         </dependency>
-
 
         <!--第三方缓存ehcache-->
         <dependency>

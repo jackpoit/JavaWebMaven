@@ -1,4 +1,4 @@
-package com.woniuxy.exception;
+package com.jackpoit.exception;
 
 /**
  * @author: jackpoit

@@ -5,6 +5,7 @@
     <title>Title</title>
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="js/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="js/bootstrap.js"></script>
     <script type="text/javascript" src="js/showImg.js"></script>
     <script src="js/vue.js"></script>
 </head>
@@ -180,7 +181,6 @@
                 <div class="row" style="margin-top: 20px">
                     <table class="table-bordered col-md-12 text-center">
                         <tr style="line-height: 50px">
-                            <!--                            <td><input type="checkbox" class="all" id="all" @click="allClick"> 全选/全消</td>-->
                             <td><input type="checkbox" class="all" id="all"> 全选/全消</td>
                             <td>编号</td>
                             <td>名称</td>
@@ -194,7 +194,6 @@
                         <tbody>
                         <tr v-for="(app,index) in appList" :key="index">
                             <td>选择<input type="checkbox" name="sel" class="sel" :value="app.id">
-                                <!--                            <td>选择<input type="checkbox" name="sel" class="sel" :value="app.id" @click="singleClick">-->
                             </td>
                             <td>{{app.id}}</td>
                             <td>{{app.appName}}</td>
@@ -219,14 +218,12 @@
                             </td>
                         </tr>
                         </tbody>
-
                     </table>
                 </div>
                 <div class="text-center">
                     <ul class="pagination">
                         <li @click="prevPage(currentPage)"><a href="javascript:void(0)">&laquo;</a></li>
-                        <li v-for="page in pageList" @click="changePage(page)"><a href="javascript:void(0)">{{page}}</a>
-                        </li>
+                        <li v-for="page in pageList" @click="changePage(page)"><a href="javascript:void(0)">{{page}}</a></li>
                         <li @click="nextPage(currentPage)"><a href="javascript:void(0)">&raquo;</a></li>
                     </ul>
                 </div>
@@ -235,9 +232,7 @@
     </div>
 </div>
 
-<script type="text/javascript" src="js/bootstrap.js"></script>
 <script>
-
     new Vue({
         el: "#app",
         data: {
@@ -248,7 +243,7 @@
             aType: '-1',
             aPlat: '-1',
             totalPage: 0,
-            updateApp: {}
+            updateApp: {},
         },
         methods: {
             showByKeyword(num, name, type, plat) {
@@ -262,10 +257,11 @@
                         this.pageList = info.navigatepageNums;
                         this.currentPage = info.pageNum;
                         this.totalPage = info.pages;
-                        // this.checkBoxClick();
-                        checkBoxClick();
+                        this.checkBoxClick();
                     },
                 })
+            }, showApp(index) {
+                this.updateApp = this.appList[index];
             },
             searchApp() {
                 this.showByKeyword(1, this.aName, this.aType, this.aPlat)
@@ -328,14 +324,22 @@
                 if (flag) {
                     this.deleteAjax(ids);
                 }
-            }, allClick() {
-                let flag = $('#all').checked;
-                alert(flag);
-                $('input[name="sel"]').prop("checked", flag);
-            }, singleClick() {
+            }, checkBoxClick() {
+
+                let $sel = $('input[name="sel"]');
                 let total = $('input[name="sel"]').length;
-                let count = $('input[name="sel"]').filter(":checked").length;
-                $('#all').prop("checked", count === total);
+                $('#all').prop("checked", false);
+                $sel.prop("checked", false);
+
+                //全选全消
+                $('#all').click(function () {
+                    let flag = this.checked;
+                    $sel.prop("checked", flag);
+                });
+                $sel.click(function () {
+                    let count = $('input[name="sel"]').filter(":checked").length;
+                    $('#all').prop("checked", count === total);
+                });
             }, addApp() {
                 $.ajax({
                     url: "app",
@@ -354,9 +358,6 @@
                         $('#addModal').modal('hide')
                     }
                 })
-
-            }, showApp(index) {
-                this.updateApp = this.appList[index];
             }, updateAjax() {
                 $.ajax({
                     url: "app",
@@ -376,28 +377,16 @@
                     }
                 })
             }
-
-
         },
-        created() {
+        created() {  //vue加载完执行  
             this.showByKeyword(1, "", '-1', '-1');
+        },
+        updated() { //数据改变后执行
+            this.checkBoxClick();
         }
+
     })
 
-    function checkBoxClick() {
-        let $products = $('input[name="sel"]');
-        let total = $('input[name="sel"]').length;
-
-        //全选全消
-        $('#all').click(function () {
-            let flag = this.checked;
-            $products.prop("checked", flag);
-        });
-        $products.click(function () {
-            let count = $('input[name="sel"]').filter(":checked").length;
-            $('#all').prop("checked", count === total);
-        });
-    }
 
 </script>
 </body>

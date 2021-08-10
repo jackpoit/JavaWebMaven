@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwn.mapper.AppMapper">
+    <select id="queryApp" parameterType="app" resultType="app">
+        select * from app
+        <where>
+            <if test="appName!='' and appName!=null">
+                and app_name like '%' #{appName} '%'
+            </if>
+            <if test="appType!='' and appType!=null">
+                and app_type =#{appType}
+            </if>
+            <if test="appPlatform!='' and appPlatform!=null">
+                and app_platform=#{appPlatform}
+            </if>
+        </where>
+    </select>
+
+    <delete id="deleteAppById" parameterType="int">
+        delete from app where id=#{id}
+    </delete>
+    <insert id="addApp" parameterType="app">
+      insert into app values(null,#{appName},#{appSize},#{appType},#{appPlatform},0,#{appImg})
+    </insert>
+
+    <update id="updateApp" parameterType="app">
+        update app
+        <set>
+            <if test="appName!=null and appName!=''">
+                app_name=#{appName},
+            </if>
+            <if test="appSize!=null and appSize>0">
+                app_size=#{appSize},
+            </if>
+            <if test="appType!=null and appType!=''">
+                app_type=#{appType},
+            </if>
+            <if test="appPlatform!=null and appPlatform!=''">
+                app_platform=#{appPlatform},
+            </if>
+            <if test="appImg!='' and appImg!=null">
+                app_img=#{appImg},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <!--where id in(?,?,?)-->
+    <delete id="deleteManyApp">
+        delete from app
+        <where>
+            <foreach collection="array" open="id in(" close=")" separator="," item="id">
+                #{id}
+            </foreach>
+        </where>
+    </delete>
+</mapper>

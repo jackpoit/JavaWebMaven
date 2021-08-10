@@ -1,4 +1,4 @@
-package com.woniuxy.util;
+package com.jackpoit.util;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
