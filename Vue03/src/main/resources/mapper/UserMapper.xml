@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woniuxy.mapper.UserMapper">
+
+    <!--编写标准的resultMap-->
+    <resultMap id="baseMap" type="com.woniuxy.bean.User">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="md5code" property="md5Code"/>
+        <result column="gender" property="gender"/>
+        <result column="birthday" property="birthday"/>
+        <result column="mobile" property="mobile"/>
+        <result column="email" property="email"/>
+        <result column="realname" property="realName"/>
+        <result column="idcard" property="idCard"/>
+        <result column="image" property="image"/>
+        <result column="level" property="level"/>
+        <result column="utype" property="uType"/>
+    </resultMap>
+
+    <!--编写一个标准的列-->
+    <sql id="baseCol">
+        id,username,password,md5code,gender,birthday,mobile,email,realname,idcard,image,`level`,utype
+    </sql>
+    <!--无密码列-->
+    <sql id="noPwdCol">
+        id,username,md5code,gender,birthday,mobile,email,realname,idcard,image,`level`,utype
+    </sql>
+
+
+    <!--    1.int add(User user);动态添加员工-->
+    <insert id="add" parameterType="com.woniuxy.bean.User">
+        INSERT INTO t_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="username != null and username != ''">
+                username,
+            </if>
+            <if test="password != null and password != ''">
+                password,
+            </if>
+            <if test="md5Code != null and md5Code != ''">
+                md5code,
+            </if>
+            <if test="gender != null and gender != ''">
+                gender,
+            </if>
+            <if test="birthday != null">
+                birthday,
+            </if>
+            <if test="mobile != null and mobile != ''">
+                mobile,
+            </if>
+            <if test="email != null and email != ''">
+                email,
+            </if>
+            <if test="realName != null and realName != ''">
+                realname,
+            </if>
+            <if test="idCard != null and idCard != ''">
+                idcard,
+            </if>
+            <if test="image != null and image != ''">
+                image,
+            </if>
+            <if test="level != null">
+                level,
+            </if>
+            <if test="uType != null">
+                utype,
+            </if>
+        </trim>
+        VALUE
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="username != null and username != ''">
+                #{username},
+            </if>
+            <if test="password != null and password != ''">
+                #{password},
+            </if>
+            <if test="md5Code != null and md5Code != ''">
+                #{md5Code},
+            </if>
+            <if test="gender != null and gender != ''">
+                #{gender},
+            </if>
+            <if test="birthday != null">
+                #{birthday},
+            </if>
+            <if test="mobile != null and mobile != ''">
+                #{mobile},
+            </if>
+            <if test="email != null and email != ''">
+                #{email},
+            </if>
+            <if test="realName != null and realName != ''">
+                #{realName},
+            </if>
+            <if test="idCard != null and idCard != ''">
+                #{idCard},
+            </if>
+            <if test="image != null and image != ''">
+                #{image},
+            </if>
+            <if test="level != null">
+                #{level},
+            </if>
+            <if test="uType != null">
+                #{uType},
+            </if>
+        </trim>
+
+    </insert>
+
+
+    <!--   2. int deleteByIds(@Param("ids") Integer... ids);删除员工-->
+    <delete id="deleteByIds">
+        DELETE FROM t_user WHERE id in
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            <if test="id!=null ">
+                #{id}
+            </if>
+        </foreach>
+    </delete>
+
+    <!--    3.int update(User user);更新员工-->
+    <update id="update" parameterType="com.woniuxy.bean.User">
+        UPDATE t_user
+        <set>
+            <if test="id != null">
+                id=#{id},
+            </if>
+            <if test="username != null and username != ''">
+                username=#{username},
+            </if>
+            <if test="password != null and password != ''">
+                password=#{password},
+            </if>
+            <if test="md5Code != null and md5Code != ''">
+                md5code=#{md5Code},
+            </if>
+            <if test="gender != null and gender != ''">
+                gender=#{gender},
+            </if>
+            <if test="birthday != null">
+                birthday=#{birthday},
+            </if>
+            <if test="mobile != null and mobile != ''">
+                mobile=#{mobile},
+            </if>
+            <if test="email != null and email != ''">
+                email=#{email},
+            </if>
+            <if test="realName != null and realName != ''">
+                realname=#{realName},
+            </if>
+            <if test="idCard != null and idCard != ''">
+                idcard=#{idCard},
+            </if>
+            <if test="image != null and image != ''">
+                image=#{image},
+            </if>
+            <if test="level != null">
+                level=#{level},
+            </if>
+            <if test="uType != null">
+                utype=#{uType},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <!--    4.List<User> findByCondition(User user);查询员工-->
+    <select id="findByCondition" parameterType="com.woniuxy.bean.User" resultMap="baseMap">
+        SELECT
+        <include refid="noPwdCol"/>
+        FROM t_user
+        <where>
+            <if test="id != null">
+                AND id=#{id}
+            </if>
+            <if test="username != null and username != ''">
+                AND username=#{username}
+            </if>
+            <if test="password != null and password != ''">
+                AND password=#{password}
+            </if>
+            <if test="md5Code != null and md5Code != ''">
+                AND md5code=#{md5Code}
+            </if>
+            <if test="gender != null and gender != ''">
+                AND gender=#{gender}
+            </if>
+            <if test="birthday != null">
+                AND birthday=#{birthday}
+            </if>
+            <if test="mobile != null and mobile != ''">
+                AND mobile=#{mobile}
+            </if>
+            <if test="email != null and email != ''">
+                AND email=#{email}
+            </if>
+            <if test="realName != null and realName != ''">
+                AND realname=#{realName}
+            </if>
+            <if test="idCard != null and idCard != ''">
+                AND idcard=#{idCard}
+            </if>
+            <if test="image != null and image != ''">
+                AND image=#{image}
+            </if>
+            <if test="level != null">
+                AND level=#{level}
+            </if>
+            <if test="uType != null">
+                AND utype=#{uType}
+            </if>
+        </where>
+    </select>
+
+    <!--   5.List<User> findByKeyword(String keyword);-->
+    <select id="findByKeyword" resultMap="baseMap">
+        SELECT
+        <include refid="noPwdCol"/>
+        FROM t_user
+        WHERE username LIKE CONCAT('%', #{value}, '%')
+        OR id LIKE CONCAT('%', #{value}, '%')
+        OR mobile LIKE CONCAT('%', #{value}, '%')
+    </select>
+
+
+<!--    6.List<User> findBySome(@Param("id")Integer id, @Param("username") String username,@Param("mobile") String mobile);-->
+    <select id="findBySome" resultMap="baseMap">
+        SELECT
+        <include refid="baseCol"/>
+        FROM t_user
+        <where>
+            <if test='id != null'>
+                AND id LIKE CONCAT("%",#{id},"%")
+            </if>
+            <if test="username != null and username !=''">
+                AND username LIKE CONCAT("%",#{username},"%")
+            </if>
+            <if test="mobile != null and mobile !=''">
+                AND mobile LIKE CONCAT("%",#{mobile},"%")
+            </if>
+        </where>
+
+    </select>
+
+</mapper>

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+    <script type="text/javascript" src="../../script/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="../../script/bootstrap.js"></script>
+
+    <script type="text/javascript" src="../../script/vue.js"></script>
+    <style type="text/css">
+        #addForm input, #updateForm input {
+            width: 50%;
+        }
+
+        #addForm, #updateForm {
+            padding: 20px 0px;
+        }
+
+        #addForm p, #updateForm p {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="userApp">
+    <!--1.添加模态框-->
+    <div id="addModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">添加用户</h4>
+                </div>
+                <div class="media-body">
+                    <form class="form-inline text-center" id="addForm">
+                        <input type="hidden" name="m" value="add">
+                        <p>
+                            <img src="../../images/user/5.jpg" width="100px" class="img-circle">
+                        </p>
+                        <p>
+                            用户名:<input type="text" name="userName" class="form-control" placeholder="请输入用户名">
+                        </p>
+                        <p>
+                            密　码:<input type="text" name="userPass" class="form-control" placeholder="请输入密码">
+                        </p>
+                        <p>
+                            手机号:<input type="text" name="userPhone" class="form-control" placeholder="请输入手机号码">
+                        </p>
+                        <p>
+                            头　像:<input type="file" name="userImg" class="form-control">
+                        </p>
+                        <p>
+                            <button type="button" class="btn btn-primary" @click="addUser">确认添加</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">返回首页</button>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--2.修改模态框-->
+    <div id="updateModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">修改用户</h4>
+                </div>
+                <div class="media-body">
+                    <form class="form-inline text-center" id="updateForm">
+                        <input type="hidden" name="m" value="edit">
+                        <p>
+                            <img :src="updateUser.image" width="100px" class="img-circle">
+                        </p>
+                        <p>
+                            编　号:<input type="text" name="userId" :value="updateUser.id" class="form-control" readonly>
+                        </p>
+                        <p>
+                            用户名:<input type="text" name="userName" :value="updateUser.username" class="form-control"
+                                       placeholder="请输入用户名">
+                        </p>
+                        <p>
+                            密　码:<input type="password" name="userPass" class="form-control" placeholder="请输入密码">
+                        </p>
+                        <p>
+                            手机号:<input type="text" name="userPhone" :value="updateUser.mobile" class="form-control"
+                                       placeholder="请输入手机号码">
+                        </p>
+                        <p>
+                            头　像:<input type="file" name="userImg" class="form-control">
+                        </p>
+                        <p>
+                            <button type="button" class="btn btn-primary" @click="updateAjax">确认修改</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">返回首页</button>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--3.上传模态框-->
+    <div id="upModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">上传文件</h4>
+                </div>
+                <div class="media-body">
+                    <form class="form-inline text-center">
+                        <p style="margin-top: 20px">
+                            选择文件:<input type="file" class="form-control" name="fileName">
+                        </p>
+                        <p>
+                            <input type="button" value="开始上传" class="btn btn-primary">
+                            <input type="button" value="返回首页" class="btn btn-primary" data-dismiss="modal">
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--4.主体内容-->
+    <div class="container-fluid">
+        <div class="row" style="line-height: 60px">
+            <form class="col-md-8 form-inline" id="searchFormId">
+                <input type="hidden" name="m" value="showPage">
+                <input type="hidden" name="currentPage" id="currentPageId">
+                编号:
+                <input type="text" placeholder="请输入用户编号" class="form-control" name="uid" style="width:140px">
+                　用户名:
+                <input type="text" placeholder="请输入用户姓名" class="form-control" name="uname" style="width:140px">
+                　手机:
+                <input type="text" placeholder="请输入手机号码" class="form-control" name="uphone" style="width:140px">
+                <button type="button" class="btn btn-primary" @click="queryUser(1)">
+                    <span class="glyphicon glyphicon-search"></span>搜索
+                </button>
+            </form>
+
+            <div class="navbar-right text-right" style="margin-right: 20px">
+                <a href="#" class="btn btn-default"><span class="glyphicon glyphicon-download-alt"></span>下载</a>
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#upModal"><span
+                        class="glyphicon glyphicon-upload"></span>上传
+                </button>
+                <button type="button" class="btn btn-warning" @click="deleteAll"><span
+                        class="glyphicon glyphicon-remove-sign"></span>批量删除
+                </button>
+                <button type="button" class="btn btn-info " data-toggle="modal" data-target="#addModal"><span
+                        class="glyphicon glyphicon-plus"></span>添加
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <table class="col-md-12 table-bordered text-center table-hover">
+                <tr style="line-height:60px">
+                    <td><input type="checkbox" id="all">全选/全消</td>
+                    <td>编号</td>
+                    <td>用户名</td>
+                    <td>手机号码</td>
+                    <td>用户头像</td>
+                    <td>用户类别</td>
+                    <td colspan="2">操作</td>
+                </tr>
+                <tr v-for="(user,index) in userList" :key="index">
+                    <td>选择<input name="checkUser" type="checkbox" :value="user.id"></td>
+                    <td>{{user.id}}</td>
+                    <td>{{user.username}}</td>
+                    <td>{{user.mobile}}</td>
+                    <td><img :src="user.image" width="60px" class="img-circle"></td>
+                    <td v-if="user.level==2">vvvip</td>
+                    <td v-else-if="user.level==1">vip</td>
+                    <td v-else>普通用户</td>
+                    <td><a href="javascript:;" class="btn btn-danger" @click="deleteById(user.id)"><span
+                            class="glyphicon glyphicon-remove"></span>删除</a></td>
+                    <td><a href="javascript:;" class="btn btn-primary" @click="editUser(index)" data-toggle="modal"
+                           data-target="#updateModal"><span
+                            class="glyphicon glyphicon-pencil"></span>修改</a></td>
+                </tr>
+            </table>
+        </div>
+        <div class="text-center">
+            <ul class="pagination">
+                <li @click="prevPage(currentPage)"><a href="javascript:void(0)">&laquo;</a></li>
+                <li v-for="page in pageList" @click="changePage(page)"><a href="javascript:void(0)">{{page}}</a></li>
+                <li @click="nextPage(currentPage)"><a href="javascript:void(0)">&raquo;</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script>
+    new Vue({
+        el: "#userApp",
+        data: {
+            userList: [],
+            pageList: [],
+            totalPage: 0,
+            currentPage: 1,
+            updateUser: {},
+        }, methods: {
+            queryUser(nowPage) {
+                $('#currentPageId').val(nowPage)
+                $.ajax({
+                    url: "../../user",
+                    dataType: "json",
+                    data: $('#searchFormId').serialize(),
+                    type: "post",
+                    success: (info) => {
+                        this.userList = info.list;
+                        this.pageList = info.navigatepageNums;
+                        this.totalPage = info.pages;
+                        this.currentPage = info.pageNum;
+                        this.checkBoxClick();
+                    }
+                })
+            }, checkBoxClick() {
+                let $checkUser = $('input[name="checkUser"]');
+                let total = $('input[name="checkUser"]').length;
+                $('#all').prop("checked", false);
+                $checkUser.prop("checked", false);
+
+                //全选全消
+                $('#all').click(function () {
+                    let flag = this.checked;
+                    $checkUser.prop("checked", flag);
+                });
+                $checkUser.click(function () {
+                    let count = $('input[name="checkUser"]').filter(":checked").length;
+                    $('#all').prop("checked", count === total);
+                });
+            }, deleteAjax(ids) {
+                $.ajax({
+                    url: "../../user",
+                    type: "post",
+                    traditional: "true",//数组选项
+                    data: {m: "deleteByIds", ids: ids},
+                    dataType: "text",
+                    success: (text) => {
+                        if ("Y" == text) {
+                            alert("删除成功")
+                            this.queryUser(this.currentPage);
+                        } else if ("N" == text) {
+                            alert("删除失败")
+                        }
+                    }
+                })
+            }, deleteById(id) {
+                let flag = confirm("您确认要删除" + id + "号用户吗?");
+                if (flag) {
+                    this.deleteAjax(id);
+                }
+            }, deleteAll() {
+                let $ids = $('input[name="checkUser"]').filter(":checked")
+                if ($ids.length === 0) {
+                    alert("没有选择的app")
+                    return;
+                }
+                let ids = [];
+                let idStr = "";
+                for (let i = 0; i < $ids.length; i++) {
+                    ids[i] = $ids.eq(i).val();
+                    idStr += ids[i];
+                    if (i != $ids.length - 1) {
+                        idStr += ",";
+                    }
+                }
+                let flag = confirm("您确认要删除" + idStr + "号用户吗?");
+                if (flag) {
+                    this.deleteAjax(ids);
+                }
+            }, editUser(index) {
+                this.updateUser = this.userList[index];
+            }, changePage(num) {
+                this.queryUser(num)
+            }, prevPage(num) {
+                if (num == 1) {
+                    num = this.totalPage;
+                } else {
+                    num = num - 1;
+                }
+                this.queryUser(num)
+            }, nextPage(num) {
+                if (num == this.totalPage) {
+                    num = 1;
+                } else {
+                    num = num + 1;
+                }
+                this.queryUser(num)
+            }, addUser() {
+                $.ajax({
+                    url: "../../user",
+                    type: "post",
+                    data: new FormData($('#addForm')[0]),
+                    contentType: false,
+                    processData: false,
+                    dataType: "text",
+                    success: (text) => {
+                        if ("Y" == text) {
+                            alert("添加成功")
+                            this.queryUser(this.currentPage);
+                        } else if ("N" == text) {
+                            alert("添加失败")
+                        }
+                        $('#addModal').modal('hide')
+                    }
+                })
+            }, updateAjax() {
+                $.ajax({
+                    url: "../../user",
+                    type: "post",
+                    data: new FormData($('#updateForm')[0]),
+                    contentType: false,
+                    processData: false,
+                    dataType: "text",
+                    success: (text) => {
+                        if ("Y" == text) {
+                            alert("修改成功")
+                            this.queryUser(this.currentPage);
+                        } else if ("N" == text) {
+                            alert("修改失败")
+                        }
+                        $('#updateModal').modal('hide')
+                    }
+                })
+            }
+        }, created() {
+            this.queryUser(1);
+        }, updated() { //数据改变后执行
+            this.checkBoxClick();
+        }
+    });
+
+
+</script>
+
+</body>
+</html>

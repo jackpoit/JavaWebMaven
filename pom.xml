@@ -25,6 +25,7 @@
         <module>Vue02</module>
         <module>Vue01</module>
         <module>DBUtil</module>
+        <module>Vue03</module>
 
     </modules>
     <packaging>pom</packaging>

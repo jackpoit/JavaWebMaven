@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+    <script type="text/javascript" src="../../script/jquery-3.5.1.js"></script>
+</head>
+<body>
+
+<!--3.上传模态框-->
+<div id="upModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">上传文件</h4>
+            </div>
+            <div class="media-body">
+                <form class="form-inline text-center">
+                    <p style="margin-top: 20px">
+                        选择文件:<input type="file" class="form-control" name="fileName">
+                    </p>
+                    <p>
+                        <input type="button" value="开始上传" class="btn btn-primary">
+                        <input type="button" value="返回首页" class="btn btn-primary" data-dismiss="modal">
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--4.主体内容-->
+<div class="container-fluid">
+    <div class="row" style="line-height: 60px">
+        <form class="col-md-8 form-inline ">
+            订单编号:<input type="text" class="form-control" placeholder="请输入订单编号" style="width:140px">
+            商品名称:
+            <input type="text" placeholder="请输入商品名称" class="form-control" style="width:140px">
+            订单状态:
+            <select class="form-control">
+                <option>全部</option>
+                <option>待收货</option>
+                <option>待评论</option>
+                <option>已评论</option>
+            </select>
+            <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span>搜索</button>
+        </form>
+
+        <div class="navbar-right text-right" style="margin-right: 20px">
+            <a href="#" class="btn btn-default"><span class="glyphicon glyphicon-download-alt"></span>下载</a>
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#upModal"><span class="glyphicon glyphicon-upload"></span>上传</button>
+            <button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-remove-sign"></span>批量删除</button>
+        </div>
+    </div>
+    <div class="row">
+        <table class="col-md-12 table-bordered text-center table-hover">
+            <tr style="line-height:60px">
+                <td><input type="checkbox">全选/全消</td>
+                <td>订单编号</td>
+                <td>商品名称</td>
+                <td>商品数量</td>
+                <td>商品价格</td>
+                <td>小计</td>
+                <td>商品图片</td>
+                <td>下单时间</td>
+                <td>收货时间</td>
+                <!--0：待收货  1:待评论  2：已评论-->
+                <td>状态</td>
+                <td>操作</td>
+            </tr>
+
+            <tr>
+                <td>选择<input type="checkbox"></td>
+                <td>2020052001</td>
+                <td>蜗牛10plus</td>
+                <td>2 件</td>
+                <td>1888.88 元</td>
+                <td>3777.76 元</td>
+                <td><img src="../../images/goods/2.jpg" width="60px" ></td>
+                <td>2020-05-20</td>
+                <td>未收货</td>
+                <td>待收货</td>
+                <td><a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span>删除</a></td>
+            </tr>
+
+            <tr>
+                <td>选择<input type="checkbox"></td>
+                <td>2020052002</td>
+                <td>蜗牛11plus</td>
+                <td>2 件</td>
+                <td>1888.88 元</td>
+                <td>3777.76 元</td>
+                <td><img src="../../images/goods/3.jpg" width="60px" ></td>
+                <td>2020-05-20</td>
+                <td>未收货</td>
+                <td>待收货</td>
+                <td><a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span>删除</a></td>
+            </tr>
+
+            <tr>
+                <td>选择<input type="checkbox"></td>
+                <td>2020052001</td>
+                <td>蜗牛12plus</td>
+                <td>2 件</td>
+                <td>1888.88 元</td>
+                <td>3777.76 元</td>
+                <td><img src="../../images/goods/4.jpg" width="60px" ></td>
+                <td>2020-05-20</td>
+                <td>未收货</td>
+                <td>待收货</td>
+                <td><a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span>删除</a></td>
+            </tr>
+        </table>
+    </div>
+    <div class="text-center">
+        <ul class="pagination">
+            <li><a href="#">&laquo;</a></li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">&raquo;</a></li>
+        </ul>
+    </div>
+</div>
+<script type="text/javascript" src="../../script/bootstrap.js"></script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <script type="text/javascript" src="script/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="script/bootstrap.js"></script>
+
+    <style type="text/css">
+        .admin-title-1{
+            line-height: 60px;
+            background: black;
+            color: white;
+            font-size: 30px;
+        }
+        .admin-title-2{
+            line-height:50px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <!--修改头像的模态框-->
+    <div id="imgModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">修改头像</h4>
+                </div>
+                <div class="media-body">
+                    <form class="form-inline text-center">
+                        <p style="margin-top: 20px">
+                            <img src="images/user/5.jpg" width="100px" class="img-circle">
+                        </p>
+                        <p >
+                            选择头像:<input type="file" class="form-control" name="fileName">
+                        </p>
+                        <p>
+                            <input type="button" value="确认修改" class="btn btn-primary">
+                            <input type="button" value="返回首页" class="btn btn-primary" data-dismiss="modal">
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid text-center admin-title-1">
+        蜗牛商城后台系统
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2" style="height:600px;background: lightgray">
+                <ul class="nav text-center" style="margin-top:150px">
+                    <li><a href="page/admin/user.html" target="showFrame">用户管理</a></li>
+                    <li><a href="page/admin/goods.html" target="showFrame">商品管理</a></li>
+                    <li><a href="page/admin/order.html" target="showFrame">订单管理</a></li>
+                    <li><a href="#">退出系统</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-10" >
+                <div class="row">
+                    <div class="admin-title-2 col-md-10 text-center">
+                        Welcome to the woniu mall
+                    </div>
+                    <div class="navbar-right col-md-2">
+                        <img src="images/user/11.jpg" width="50px" class="img-circle" data-toggle="modal" data-target="#imgModal">:　charles
+                    </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <iframe src="page/admin/welcome.html" name="showFrame" frameborder="0" scrolling="no" width="100%" height="510px"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
